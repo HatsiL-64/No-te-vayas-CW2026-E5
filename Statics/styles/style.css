@@ -1,0 +1,24 @@
+
+.modulos{
+
+    height: 80px;
+    width: 150px;
+    background-color: #EBE19B;
+}
+
+.contenedor-modulos{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.cuadro{
+
+    height: 80px;
+    width: 150px;
+    background-color: #EBE19B;
+}
+
+main{
+    flex: 1;
+}
