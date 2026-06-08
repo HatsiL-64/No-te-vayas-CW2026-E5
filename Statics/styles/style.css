@@ -1,24 +1,45 @@
-
-.modulos{
-
-    height: 80px;
-    width: 150px;
+/* --- Estilos de módulos--- */
+.modulos_par{
+    height: 200px;
+    width: 350px;
+    text-align: center;
     background-color: #EBE19B;
+    position: relative;
+    left: 1000px;
+    bottom: 220px;
+    margin: 0px;
+    padding: 0px;
+
+}
+.modulos_impar{
+    height: 200px;
+    width: 350px;
+    text-align: center;
+    background-color: #EBE19B;
+    position: relative;
+    left: 400px;
 }
 
-.contenedor-modulos{
+#tit_mod{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    justify-content: center;
+}
+.contenedor_modulos{
+    position: relative;
 }
 
+/* --- Estilos dentro de módulos--- */
 .cuadro{
-
     height: 80px;
     width: 150px;
     background-color: #EBE19B;
+    position: relative;
+    left: 700px;
+    bottom: 0px;
+    text-align: center;
 }
 
 main{
     flex: 1;
 }
+

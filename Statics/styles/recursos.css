@@ -1,0 +1,33 @@
+
+.cuadro-re{
+
+    height: 100px;
+    width: 150px;
+    background-color: #EBE19B;
+}
+#cuadro-arch{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+#cuadro-ejer{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+#cuadro-enl{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+#cuadro-script{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+h2{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
