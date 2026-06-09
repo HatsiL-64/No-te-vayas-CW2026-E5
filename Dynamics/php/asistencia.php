@@ -10,7 +10,7 @@ include 'layout.php';
 
 </head>
 <body>
-    <main>
+    <main class="main_asi">
         <h1>Asistencia</h1>
 
         <table class="tabla">

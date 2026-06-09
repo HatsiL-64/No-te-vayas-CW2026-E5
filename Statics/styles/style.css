@@ -9,6 +9,7 @@
     bottom: 220px;
     margin: 0px;
     padding: 0px;
+    bottom: 50px;
 
 }
 .modulos_impar{
@@ -18,9 +19,12 @@
     background-color: #EBE19B;
     position: relative;
     left: 400px;
+    top: 170px;
 }
 
 #tit_mod{
+    position: relative;
+    top: 100px;
     text-align: center;
 }
 .contenedor_modulos{
@@ -34,7 +38,7 @@
     background-color: #EBE19B;
     position: relative;
     left: 700px;
-    bottom: 0px;
+    top: 100px;
     text-align: center;
 }
 

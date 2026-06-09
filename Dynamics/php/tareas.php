@@ -10,7 +10,7 @@ include 'layout.php';
 
 </head>
 <body>
-    <main>
+    <main class="main_tar">
         <h1>Actividades/Tareas</h1>
 
         <section class="tareas">
