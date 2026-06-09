@@ -9,11 +9,11 @@
 <body>
     <nav class="encabezado"> 
         <div class="escudos"> 
-            <img src="./media\img/escudo-prepa.jpg" class="logo">
-            <img src="./media\img/escudo-unam.png" class="logo">
+            <img src="../../Statics/media/img/escudo-prepa.jpg" class="logo">
+            <img src="../../Statics/media/img/logo_unam.png" class="logo">
         </div>
         <div class="usuario">
-            <img src="./media\img/logo-usuario.png" class="logo">
+            <img src="../../Statics/media/img/logo-usuario.png" class="logo">
         </div>
     </nav>
     <div class="login">
