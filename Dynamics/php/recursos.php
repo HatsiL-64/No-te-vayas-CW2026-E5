@@ -13,13 +13,13 @@ include 'layout.php';
     <main class="recursos">
         <h2>Recursos</h2>
 
-        <section class="archivos">
+        <section id="archivos">
             <h3>Archivos</h3>
-            <div id="cuadro-arch">
-                <article class="cuadro-re">
+            <div id="cuadro_arch">
+                <article class="cuadro_re">
                     <h3>Archivo 1</h3>
                 </article>
-                <article class="cuadro-re">
+                <article class="cuadro_re">
                     <h3>Archivo 2</h3>
                 </article>
             </div>
@@ -27,11 +27,11 @@ include 'layout.php';
 
         <section id="ejercicios">
             <h3>Ejercicios</h3>
-            <div id="cuadro-ejer">
-                <article class="cuadro-re">
+            <div id="cuadro_ejer">
+                <article class="cuadro_re">
                     <h3>Ejercicio 1</h3>
                 </article>
-                <article class="cuadro-re">
+                <article class="cuadro_re">
                     <h3>Ejercicio 2</h3>
                 </article>
             </div>
@@ -39,11 +39,11 @@ include 'layout.php';
 
         <section id="enlaces">
             <h3>Enlaces</h3>
-            <div id="cuadro-enl">
-                <article class="cuadro-re">
+            <div id="cuadro_enl">
+                <article class="cuadro_re">
                     <h3>Enlace 1</h3>
                 </article>
-                <article class="cuadro-re">
+                <article class="cuadro_re">
                     <h3>Enlace 2</h3>
                 </article>
             </div>
@@ -51,11 +51,11 @@ include 'layout.php';
 
         <section id="scripts">
             <h3>Scripts</h3>
-            <div id="cuadro-script">
-                <article class="cuadro-re">
+            <div id="cuadro_script">
+                <article class="cuadro_re">
                     <h3>Script 1</h3>
                 </article>
-                <article class="cuadro-re">
+                <article class="cuadro_re">
                     <h3>Script 2</h3>
                 </article>
             </div>

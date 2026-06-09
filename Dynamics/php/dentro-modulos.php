@@ -19,7 +19,9 @@ include 'layout.php';
                 </h3>
             </article>
             <article class="cuadro">
-                <h3>Actividades/tareas</h3>
+                <h3>
+                    <a href="tareas.php">Actividades/tareas</a>
+                </h3>
             </article>
             <article class="cuadro">
                 <h3>Asistencia</h3>
