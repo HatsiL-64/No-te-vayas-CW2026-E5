@@ -1,0 +1,81 @@
+:root{
+    --azul-marino: #00296B;
+    --azul-mar: #003F88;
+    --azul-cielo: #00509D;
+    --dorado: #FDC500;
+    --amarillo-chillon: #FFD500;
+}
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;    
+    font-family: sans-serif;
+    background-color: #FFFFFF;
+}
+.encabezado{
+    background-color: var(--dorado);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 3%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+}
+.escudos{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.logo{
+    width: 50px;
+    border-radius: 50px;
+}
+.menu_lateral{
+    background-color: var(--azul-marino);
+    position:fixed;
+    height: 100vh;
+    text-align: center;
+    padding: 25px 8px;
+    border: 0px;
+    margin: 0px;
+}
+input[type="submit"]{
+    background-color: #8D9BB2;
+    padding: 8px 20px;
+    margin: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #000000;    
+}
+main{
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 40px;
+    border-radius: 20px;
+}
+textarea{
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--dorado);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    outline: none;
+}
+.email{
+    margin-top: 20px;
+    padding: 8px;
+    background-color: var(--azul-marino);
+    color: rgb(255, 255, 255);
+    width: 60vw;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.foto_perfil{
+    width: 50px;
+    background-color: white;
+    border-radius: 50%;
+}
