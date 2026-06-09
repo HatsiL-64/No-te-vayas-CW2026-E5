@@ -21,8 +21,7 @@
 }
 
 #tit_mod{
-    display: grid;
-    justify-content: center;
+    text-align: center;
 }
 .contenedor_modulos{
     position: relative;
@@ -37,9 +36,5 @@
     left: 700px;
     bottom: 0px;
     text-align: center;
-}
-
-main{
-    flex: 1;
 }
 

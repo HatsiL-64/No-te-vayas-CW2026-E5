@@ -24,7 +24,9 @@ include 'layout.php';
                 </h3>
             </article>
             <article class="cuadro">
-                <h3>Asistencia</h3>
+                <h3>
+                    <a href="asistencia.php">Asistencia</a>
+                </h3>
             </article>
         </section>
     </main>
