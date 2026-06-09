@@ -6,7 +6,7 @@ include 'layout.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewpport" content ="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Statics/styles/style.css">
+    <link rel="stylesheet" href="/No-te-vayas-CW2026-E5/Statics/styles/style.css">
 
 </head>
 <body>
