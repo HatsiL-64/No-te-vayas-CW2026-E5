@@ -13,7 +13,9 @@ include 'layout.php';
         <h2>Cuestionario</h2>
         <div class="cuestionario">
             <form action="resp-cuestionario.php" method="POST">
-                <div id="he">
+                <input type="number" name="id_alumno" placeholder="Usuario" required>
+                <input type="text" name="id_grupo" placeholder="Usuario" required>
+                <div id="cat_par">
                     <h3>Estilo de Aprendizaje</h3>
                     <div id="pregunta-bloque">
                         <p>¿Cuál es tu estilo de aprendizaje principal?</p>
@@ -27,6 +29,8 @@ include 'layout.php';
                             <input type=radio name="ea" value="P">Práctico
                         </label>
                     </div>
+                </div>
+                <div id="cat_imp">
                     <h3>Hábitos de estudio y en clase</h3>
                     <div id="pregunta-bloque">
                         <p>1. Cuando tienes un examen:</p>
@@ -161,7 +165,7 @@ include 'layout.php';
                         </label>
                     </div>
                 </div>
-                <div id="t">
+                <div id="cat_par">
                     <h3>Tiempo Disponible</h3>
                     <div id="pregunta-bloque">
                         <p>1. ¿Cuánto tiempo podrías dedicar a diario a estudiar para el ETE?</p>
@@ -236,7 +240,7 @@ include 'layout.php';
                         </label>
                     </div>
                 </div>
-                <div id="aa">
+                <div id="cat_imp">
                     <h3>Análisis y abstracción</h3>
                     <div id="pregunta-bloque">
                         <p>1. Cuando tu código presenta un error:</p>
@@ -263,7 +267,7 @@ include 'layout.php';
                         </label>
                     </div>
                 </div>
-                <div id="ec">
+                <div id="cat_par">
                     <h3>Equipo de cómputo</h3>
                     <div id="pregunta-bloque">
                         <p>1. ¿Cuentas con acceso a un equipo de cómputo?</p>
@@ -290,7 +294,7 @@ include 'layout.php';
                         </label>
                     </div>
                 </div>
-                <div id="mye">
+                <div id="cat_imp">
                     <h3>Motivación y Entorno de aprendizaje</h3>
                     <div id="pregunta-bloque">
                         <p>1. ¿Cuál dirías que es tu interés actual por la programación?</p>
@@ -330,27 +334,28 @@ include 'layout.php';
                     <div id="pregunta-bloque">
                         <p>4. ¿Cuál sería el principal motivo por el que lo harías?</p>
                         <label>
-                            <input type=radio name="mye_1" value="4" required>No me lo he planteado.
+                            <input type=radio name="mye_4" value="4" required>No me lo he planteado.
                         </label>
                         <label>
-                            <input type=radio name="mye_1" value="3" required>No le estoy entendiendo a los temas.
+                            <input type=radio name="mye_4" value="3" required>No le estoy entendiendo a los temas.
                         </label>
                         <label>
-                            <input type=radio name="mye_1" value="2">Necesito priorizar mis clases curriculares.
+                            <input type=radio name="mye_4" value="2">Necesito priorizar mis clases curriculares.
                         </label>
                         <label>
-                            <input type=radio name="mye_1" value="1">No tiempo.
+                            <input type=radio name="mye_4" value="1">No tiempo.
                         </label>
                     </div>
                     <div class="pregunta-bloque">
                         <p>¿Tienes algún comentario o sugerencia adicional?</p>
                         <textarea name="comentario" rows="4" placeholder="Escribe aquí tus comentarios"></textarea>
                     </div>
+                    <div class="contenedor-boton">
+                        <button type="submit" class="btn-enviar">Enviar Cuestionario</button>
+                    </div>
                 </div>
             </form>
-
         </div>
     </main>
-
 </body>
 </html>
