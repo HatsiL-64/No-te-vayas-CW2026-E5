@@ -4,7 +4,7 @@ $error = null;
 
 if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"]))
 {
-  require 'conexion.php';
+  require 'config.php';
   $usuario_entrada = trim($_POST["usuario"]);
   $password = trim($_POST["password"]);
   $tipo_usuario = $_POST["tipo_usuario"];
@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"]))
     $_SESSION['tipo_usuario'] = $registro["tipo_usuario"];
     $_SESSION['nombre'] = $registro["nombre"];
     setcookie("usuario", $registro["id_usuario"], time() + 604800); // 3600 * 24 * 7 Una semana
-    header("Location: layout.php");
+    header("Location: inicio.php");
   }
   else 
   {
@@ -40,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"]))
 
 }  /*
 else {
-  require 'conexion.php';
+  require 'config.php';
   if(isset($_COOKIE["usuario"]))
   {
     $usuario = $_COOKIE["usuario"];
