@@ -26,7 +26,7 @@
             <p><a href="#">Inicio</a></p>
             <p><a href="#">Mi Perfil</a></p>
             <p><a href="#">Mensajes</a></p>
-            <p><a href="#">Cerrar Sesión</a></p>
+            <p><a href="./cerrar_sesion.php">Cerrar Sesión</a></p>
         </div>
     </nav>
 </body>
