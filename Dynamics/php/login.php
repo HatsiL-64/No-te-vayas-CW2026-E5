@@ -24,7 +24,6 @@ if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"]))
   $resultado = mysqli_query($conexion, $sql);
   $registro = mysqli_fetch_assoc($resultado);
 
-  var_dump($registro);
   if($registro)
   {
     $_SESSION['usuario'] = $registro["id_usuario"];
@@ -36,6 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"]))
   else 
   {
     $error = "Usuario no encontrado";
+    header("Location: ../../Templates/login.html");
   }
 
 }  /*
@@ -58,57 +58,3 @@ else {
   }  
 }*/
 ?>
-
-<!doctype html>
-<html lang="es">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../Statics\styles\login.css">
-  <link rel="icon" href="data:,">
-  <title>login</title>
-
-</head>
-
-<body>
-  <nav class="encabezado">
-    <div class="escudos">
-      <img src="../../Statics/media/img/escudo-prepa.jpg" class="logo">
-      <img src="../../Statics/media/img/logo_unam.png" class="logo">
-    </div>
-    <div class="usuario">
-      <img src="../../Statics/media/img/logo-usuario.png" class="logo">
-    </div>
-  </nav>
-  <div class="login">
-    <div class="sesion">
-      <h2>Bienvenid@</h2>
-      <p>!!No te vayas<br>
-        QuédETE!!</p>
-      <form action="login.php" method="post">  
-        <!--
-        Se podria poner aqui un div que diga que no se encontro el alumno en caso de error
-        <div class="alerta", role="alert">No se encontro el usuario</div>
-        El problema es que requiere JS
-        <script></script>
-        -->
-        <div>
-          <input type="text" name="usuario" placeholder="Usuario" required>
-        </div>
-        <div>
-          <input type="password" name="password" placeholder="Contraseña" required>
-        </div>
-        <div>
-          <label><input type="radio" name="tipo_usuario" value="profesor"> Profesor</label>
-          <label><input type="radio" name="tipo_usuario" value="alumno"> Alumno</label>
-        </div>  
-        <div>
-          <input type="submit" value="Acceder">
-        </div>
-      </form>
-    </div>
-  </div>
-</body>
-
-</html>
