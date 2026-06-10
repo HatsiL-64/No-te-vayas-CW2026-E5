@@ -1,5 +1,25 @@
 <?php
-include 'layout.php';
+    include 'layout.php';
+    include 'config.php';
+    session_start();
+    $usuario = $_SESSION['usuario'];
+
+    $sql1= "SELECT id_alumno FROM alumnos WHERE id_usuario = $usuario";
+    $resultado = mysqli_query($conexion, $sql1);
+    $fila1 = mysqli_fetch_assoc($resultado);
+    $id_alumno = $fila1['id_alumno'];
+
+    $sql= "SELECT id_grupo1 FROM alumnos WHERE id_usuario = $usuario";
+    $resultado = mysqli_query($conexion, $sql);
+    $fila = mysqli_fetch_assoc($resultado);
+    $id_grupo1 = $fila['id_grupo1'];
+    $sql2= "SELECT id_ete FROM grupos WHERE id_grupo = '$id_grupo1'";
+    $resultado = mysqli_query($conexion, $sql2);
+    $fila2 = mysqli_fetch_assoc($resultado);
+    $id_ete = $fila2['id_ete'];
+    echo $id_ete;
+    if($id_ete == 'CM1' || $id_ete == 'CM2' ||$id_ete == 1)
+    {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,8 +33,8 @@ include 'layout.php';
         <h2>Cuestionario</h2>
         <div class="cuestionario">
             <form action="resp-cuestionario.php" method="POST">
-                <input type="number" name="id_alumno" placeholder="Usuario" required>
-                <input type="text" name="id_grupo" placeholder="Usuario" required>
+                <input type="hidden" name="id_alumno" value=<?php echo $id_alumno ?>>
+                <input type="hidden" name="id_grupo" value=<?php echo $id_grupo1 ?>>
                 <div id="cat_par">
                     <h3>Estilo de Aprendizaje</h3>
                     <div id="pregunta-bloque">
@@ -359,3 +379,9 @@ include 'layout.php';
     </main>
 </body>
 </html>
+<?php
+    }
+    else{
+        header("Location: inicio.php"); 
+    }
+?>

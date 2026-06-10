@@ -1,36 +1,60 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Statics\styles\login.css">    <title>Document</title>
+<?php
+session_start();
+$error = null;
 
-</head>
-<body>
-    <nav class="encabezado"> 
-        <div class="escudos"> 
-            <img src="../../Statics/media/img/escudo-prepa.jpg" class="logo">
-            <img src="../../Statics/media/img/logo_unam.png" class="logo">
-        </div>
-        <div class="usuario">
-            <img src="../../Statics/media/img/logo-usuario.png" class="logo">
-        </div>
-    </nav>
-    <div class="login">
-        <div class="sesion">
-            <h2>Bienvenid@</h2>
-            <p>!!No te vayas<br>
-            QuédETE!!</p>
-            <div>
-                <input type="text" name="usuario" placeholder="Usuario" required>
-            </div>
-            <div>
-                <input type="password" name="contraseña" placeholder="No.Cuenta" required>
-            </div>
-            <div>
-                <input type="submit" value="Acceder">
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"]))
+{
+  require 'config.php';
+  $usuario_entrada = trim($_POST["usuario"]);
+  $password = trim($_POST["password"]);
+  $tipo_usuario = $_POST["tipo_usuario"];
+
+  //Cambia el usuario segun el tipo de usuario
+  if($tipo_usuario == "alumno"){
+    $usuario = "1". $usuario_entrada;
+  } 
+  else if($tipo_usuario == "profesor"){
+    $usuario = "2". $usuario_entrada;
+  } 
+  else{
+    $usuario = "3". $usuario_entrada;
+  }
+
+  $sql = "SELECT nombre, id_usuario, tipo_usuario FROM usuarios WHERE id_usuario = '$usuario' AND password = '$password'";
+  $resultado = mysqli_query($conexion, $sql);
+  $registro = mysqli_fetch_assoc($resultado);
+
+  if($registro)
+  {
+    $_SESSION['usuario'] = $registro["id_usuario"];
+    $_SESSION['tipo_usuario'] = $registro["tipo_usuario"];
+    $_SESSION['nombre'] = $registro["nombre"];
+    setcookie("usuario", $registro["id_usuario"], time() + 604800); // 3600 * 24 * 7 Una semana
+    header("Location: inicio.php");
+  }
+  else 
+  {
+    $error = "Usuario no encontrado";
+    header("Location: ../../login.html");
+  }
+
+}  /*
+else {
+  require 'config.php';
+  if(isset($_COOKIE["usuario"]))
+  {
+    $usuario = $_COOKIE["usuario"];
+
+    $sql = "SELECT nombre FROM usuarios WHERE id_usuario = '$usuario'";
+    $resultado = mysqli_query($conexion, $sql);
+    $registro = mysqli_fetch_assoc($resultado);
+
+    
+    $_SESSION['usuario'] = $registro["id_usuario"];
+    $_SESSION['tipo_usuario'] = $registro["tipo_usuario"];
+    $_SESSION['nombre'] = $registro["nombre"];
+    setcookie("usuario", $registro["id_usuario"], time() + (604800)); // 3600 * 24 * 7 Una semana
+    header("Location: layout.php");
+  }  
+}*/
+?>

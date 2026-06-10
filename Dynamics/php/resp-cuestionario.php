@@ -1,9 +1,8 @@
 <?php
     include 'config.php';
-
+    include 'layout.php';
     if($_SERVER["REQUEST_METHOD"] == 'POST')
     {
-        var_dump($_POST);
         $id_alumno = $_POST["id_alumno"];
         $id_grupo = $_POST["id_grupo"];
         $ea = $_POST["ea"];
@@ -33,7 +32,17 @@
         $mye_3 = $_POST["mye_3"];
         $mye_4 = $_POST["mye_4"];
         $comentario = $_POST["comentario"];
-
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Statics/styles/cuestionario.css">
+</head>
+<body>
+    <main class="contenido">
+<?php
         $sql = "SELECT id_alumno FROM cuestionario WHERE id_alumno = $id_alumno";
         $resultado = mysqli_query($conexion, $sql);
         if (mysqli_num_rows($resultado) > 0)
@@ -45,7 +54,12 @@
             $ejecutar = mysqli_query($conexion, $sql2);
             if($ejecutar)
             {
-                echo "Cuestionario guardado";
+?>
+            <div id="cat_par">
+                <p>Cuestionario actualizado</p>
+                <a href="inicio.php">Inicio</a>
+                <a href="cuestionario.php">Volver a Contestar</a>
+<?php
             } else {
                 echo "Hubo un error"; echo "Error en UPDATE: " . mysqli_error($conexion);
             }
@@ -57,9 +71,18 @@
             if($ejecutar)
             {
                 echo "Cuestionario guardado";
+?>
+            <div id="cat_par">
+                <p>Cuestionario guardado</p>
+                <a href="inicio.php">Inicio</a>
+                <a href="cuestionario.php">Volver a Contestar</a>
+<?php
             } else {
                 echo "Hubo un error"; echo "Error en UPDATE: " . mysqli_error($conexion);
             }
         }
+    }
+    else{
+        header("Location: inicio.php");
     }
 ?>
