@@ -4,27 +4,43 @@ include 'conexion.php';
 $id_grupo = '61B';
 $id_alumno = '101010';
 
-    function promedios_asistencias($conexion, $id_grupo)
+    function asistencias_alumno($conexion, $id_alumno)
     {
-        $sql = "SELECT id_grupo, d_asistidos, d_total FROM asistencia WHERE id_grupo = '$id_grupo'";
+        $sql = "SELECT asistencia.id_alumno, asistencia.d_asistidos, asistencia.d_total FROM asistencia WHERE asistencia.id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
 
         if ($registro = mysqli_fetch_assoc($resultado_query));{
             $asistidos =  $registro["d_asistidos"];
             $total = $registro["d_total"];
-            $promedio_asis = ($asistidos + $total)/2;
-            return $promedio_asis;
+            $promedio_alumno = ($asistidos / $total)*100;
+            return $promedio_alumno;
         }
         return 0;
     }
 
-    echo "El promedio de asistencia es: " . promedios_asistencias($conexion, $id_grupo);
+    echo "El promedio de asistencia por alumno es: " . asistencias_alumno($conexion, $id_alumno);
+
+    function asistencias_grupal($conexion, $id_grupo)
+    {
+        $sql = "SELECT asistencia.id_grupo, asistencia.d_total, AVG(asistencia.d_asistidos) FROM asistencia WHERE id_grupo = '$id_grupo'";
+        $resultado_query = mysqli_query($conexion, $sql);
+
+        if ($registro = mysqli_fetch_assoc($resultado_query));{
+            $asistidos =  $registro["AVG(asistencia.d_asistidos)"];
+            $total = $registro["d_total"];
+            $promedio_grupo = ($asistidos / $total)*100;
+            return $promedio_grupo;
+        }
+    }
+
+    echo "El promedio de asistencia es: " . asistencias_grupal($conexion, $id_grupo);
 
 
-    function promedios_calificaciones($conexion, $id_alumno)
+    function calificaciones_alumnos($conexion, $id_alumno)
     {
         $suma_calificaciones = 0;
         $total_calificaciones = 0;
+        $caliicacion_maxima = 10;
 
         $sql = "SELECT calificacion FROM calificaciones WHERE id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
@@ -36,13 +52,30 @@ $id_alumno = '101010';
             }
         }
         if ($total_calificaciones > 0) {
-            $promedios_calificaciones = $suma_calificaciones / $total_calificaciones;
-            return $promedios_calificaciones;
-        }
+            $promedio = ($suma_calificaciones / $total_calificaciones);
+            /*$porcentaje = ($promedio / $caliicacion_maxima)*100;*/
 
+            return $promedio;
+        }
         
     }
 
-    echo "El promedio de calificaciones es: " . promedios_calificaciones($conexion, $id_alumno);
+    echo "El promedio de tus calificaciones es: " . calificaciones_alumnos($conexion, $id_alumno);
+
+    
+    function calificaciones_grupo ($conexion, $id_grupo)
+    {
+        $sql = "SELECT SUM(calificacion), COUNT(calificacion) FROM calificaciones WHERE id_grupo = '$id_grupo'";
+        $resultado_query = mysqli_query($conexion, $sql);
+        
+        if ($registro = mysqli_fetch_assoc($resultado_query));{
+            $suma_calificaciones =  $registro["SUM(calificacion)"];
+            $total = $registro["COUNT(calificacion)"];
+            $calificacion_grupo = ($suma_calificaciones / $total);
+            return $calificacion_grupo;
+        }
+    }
+
+    echo "El promedio por grupo de calificaciones es: " . calificaciones_grupo($conexion, $id_grupo);
 
 ?>
