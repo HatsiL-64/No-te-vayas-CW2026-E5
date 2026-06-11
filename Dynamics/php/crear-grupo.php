@@ -8,9 +8,22 @@
     $resultado= mysqli_query($conexion, $sql1);
     $fila= mysqli_fetch_assoc($resultado);
     $tipo_usuario= $fila['tipo_usuario'];
+    $actualizar = 0;
     if($tipo_usuario == 3)
     {
         
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Statics/styles/cuestionario.css">
+</head>
+<body>
+    <main class="contenido">
+        <h2>Crear Grupo</h2>
+<?php
         $sql2 = "SELECT nombre FROM ete";
         $respuesta = mysqli_query($conexion, $sql2);
         $lista_etes = array();
@@ -29,6 +42,24 @@
             $plantel = $_POST["plantel"];
             $nombre_ete = $_POST["nombre_ete"];
 
+            $sql_existe = "SELECT nombre, id_grupo, id_ete FROM grupos WHERE nombre = '$nombre'";
+            $resultado_e = mysqli_query($conexion, $sql_existe);
+            if (mysqli_num_rows($resultado_e) > 0)
+            {
+                $fila_existente = mysqli_fetch_assoc($resultado_e);
+                var_dump($fila_existente);
+                $id_grupo = $fila_existente['id_grupo'];
+                $id_ete = $fila_existente['id_ete'];    
+                $actualizar=1;
+                ?>
+                    <div id="cat_imp">
+                        <p>El grupo ya existe</p>
+                        <a href="asignar-prof.php?grupo=<?php echo $id_grupo; ?>&ete=<?php echo $id_ete; ?>&actualizar=<?php echo $actualizar; ?>">Actualizar docentes asignados</a>
+                        <a href="crear-grupo.php">Crear otro grupo</a>
+                    </div>
+                <?php
+            }
+            else{
             $id_grupo = $plantel . $nombre;
             $sql3 = "SELECT id_ete FROM ete WHERE nombre = '$nombre_ete'";
             $resultado = mysqli_query($conexion, $sql3);
@@ -38,7 +69,7 @@
             VALUES('$id_grupo', '$nombre', $id_ete, $plantel)";
             $resultado = mysqli_query($conexion, $sql4);
             
-            $sql_asignatura = "CREATE TABLE asignaturas$id_grupo(
+            $sql_asignatura = "CREATE TABLE asignaturas_$id_grupo(
             id_grupo VARCHAR(7) NOT NULL,
             id_modulo VARCHAR(10) NOT NULL,
             id_profesor INT NOT NULL,
@@ -53,7 +84,7 @@
             )";
             mysqli_query($conexion, $sql_asignatura);
 
-            $sql_act = "CREATE TABLE actividades$id_grupo(
+            $sql_act = "CREATE TABLE actividades_$id_grupo(
             id_actividad INT PRIMARY KEY, 
             tipo_act VARCHAR(5) NOT NULL, 
             fecha_asig DATETIME NOT NULL, 
@@ -64,17 +95,17 @@
             )";
             mysqli_query($conexion, $sql_act);
 
-            $sql_calificaciones = "CREATE TABLE calificaciones$id_grupo(
+            $sql_calificaciones = "CREATE TABLE calificaciones_$id_grupo(
             id_alumno INT NOT NULL, 
             id_actividad INT NOT NULL, 
             calificacion DECIMAL(4,2) NOT NULL, 
             PRIMARY KEY (id_alumno, id_actividad), 
             FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno), 
-            FOREIGN KEY (id_actividad) REFERENCES actividades$id_grupo(id_actividad) 
+            FOREIGN KEY (id_actividad) REFERENCES actividades_$id_grupo(id_actividad) 
             )";
             mysqli_query($conexion, $sql_calificaciones);
 
-            $sql_asistencia = "CREATE TABLE asistencia$id_grupo(
+            $sql_asistencia = "CREATE TABLE asistencia_$id_grupo(
             id_alumno INT NOT NULL, 
             id_modulo VARCHAR(10), 
             PRIMARY KEY (id_alumno, id_modulo),
@@ -83,7 +114,7 @@
             )";
             mysqli_query($conexion, $sql_asistencia);
 
-            $sql_recursos = "CREATE TABLE recursos$id_grupo(
+            $sql_recursos = "CREATE TABLE recursos_$id_grupo(
             id_recurso INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
             id_modulo VARCHAR(10),
             tipo_recurso VARCHAR(1), 
@@ -92,19 +123,11 @@
             )";
             mysqli_query($conexion, $sql_recursos);
 
-            header("Location: asignar-prof.php?grupo=".$id_grupo."&ete=".$id_ete);
+            header("Location: asignar-prof.php?grupo=".$id_grupo."&ete=".$id_ete."&actualizar=".$actualizar);
+            }
         }
+        if($actualizar == 0){
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content ="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Statics/styles/cuestionario.css">
-</head>
-<body>
-    <main class="contenido">
-        <h2>Crear Grupo</h2>
         <div id="cat_par">
             <form action="crear-grupo.php" method="POST">
                 <label>Nombre del grupo: </label>
@@ -133,6 +156,7 @@
 </body>
 </html>
 <?php
+        }
     }
     else{
         header("Location: inicio.php");

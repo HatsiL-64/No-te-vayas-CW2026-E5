@@ -9,10 +9,11 @@ $resultado = mysqli_query($conexion, $sql1);
 $fila = mysqli_fetch_assoc($resultado);
 $tipo_usuario = $fila['tipo_usuario'];
 
-if ($tipo_usuario == 3) {)
+if ($tipo_usuario == 3) {
     if (isset($_GET['grupo']) && isset($_GET['ete'])) {
         $id_grupo = $_GET['grupo'];
         $id_ete = $_GET['ete'];
+        $actualizar = $_GET['actualizar'];
     } else if (isset($_POST['id_grupo']) && isset($_POST['id_ete'])) {
         $id_grupo = $_POST['id_grupo'];
         $id_ete = $_POST['id_ete'];
@@ -45,19 +46,26 @@ if ($tipo_usuario == 3) {)
     $todo_bien = 0;
     $procesado = false;
 
-    if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['modulos'])) {
+    if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['modulos'])) 
+    {   
         $procesado = true;
         $id_profesor_seleccionado = $_POST["id_profesor"];
         $modulos_enviados = $_POST["modulos"]; 
 
         $todo_bien = 1;
-        foreach ($modulos_enviados as $modulo_id) {
-            $sql4 = "INSERT INTO asignaturas$id_grupo(id_grupo, id_modulo, id_profesor) 
+        foreach ($modulos_enviados as $modulo_id) 
+        {
+            if($actualizar==0){
+            $sql4 = "INSERT INTO asignaturas_$id_grupo(id_grupo, id_modulo, id_profesor) 
                     VALUES('$id_grupo', '$modulo_id', '$id_profesor_seleccionado')";
             $resultado_insert = mysqli_query($conexion, $sql4);
-            
+            }
+            else{
+            $sql4 = "UPDATE asignaturas_$id_grupo SET id_grupo = '$id_grupo', id_modulo = '$modulo_id', id_profesor = '$id_profesor_seleccionado' WHERE id_modulo = '$modulo_id'";
+            $resultado_insert = mysqli_query($conexion, $sql4);
+            }
             if (!$resultado_insert) {
-                $todo_bien = 0;
+                $todo_bien = 0; echo "Error en la consulta SQL: " . mysqli_error($conexion);
             }
         }
     }
@@ -81,15 +89,16 @@ if ($tipo_usuario == 3) {)
                 <a href="inicio.php">Terminar grupo</a>
             </div>
     <?php
-        } else { 
+        } else 
+        { 
     ?>
             <h2 id="am">Asignación de Módulos/Asignaturas</h2>
             <div id="cat_par">
-                <form action="asignar-prof.php?grupo=<?php echo $id_grupo; ?>&ete=<?php echo $id_ete; ?>" method="POST">
+                <form action="asignar-prof.php?grupo=<?php echo $id_grupo; ?>&ete=<?php echo $id_ete; ?>&actualizar=<?php echo $actualizar; ?>" method="POST">
                     
                     <input type="hidden" name="id_grupo" value="<?php echo $id_grupo; ?>">
                     <input type="hidden" name="id_ete" value="<?php echo $id_ete; ?>">
-
+                    <input type="hidden" name="actualizar" value="<?php echo $actualizar; ?>">
                     <label>Profesor: </label>
                     <select name="id_profesor" required>
                         <option value="">Selecciona un docente...</option>
@@ -121,6 +130,7 @@ if ($tipo_usuario == 3) {)
                 </form>
             </div>
     <?php
+            
         } 
     ?>
     </main>
