@@ -1,0 +1,19 @@
+.pregunta_formulario{
+    padding-left: 20px;
+    background-color: #FDC500;
+}
+
+#nombre_seccion{
+    padding: 10px;
+    padding-left: 20px;
+    background-color: rgb(0, 41, 107);
+    color: rgb(253, 197, 0);
+    width: 75vw;
+}
+#formulario {
+    margin-top: 30px;
+    padding: 30px;
+    background-color: #00509D;
+    width: 75vw;
+}
+
