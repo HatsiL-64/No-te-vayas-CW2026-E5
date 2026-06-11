@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"]))
   else 
   {
     $error = "Usuario no encontrado";
-    header("Location: ../../Templates/login.html");
+    header("Location: ../../login.html");
   }
 
 }  /*
