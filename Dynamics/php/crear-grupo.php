@@ -80,7 +80,8 @@
             peso_practica DECIMAL(5,2),
             PRIMARY KEY (id_grupo, id_modulo),
             FOREIGN KEY (id_grupo) REFERENCES grupos(id_grupo),
-            FOREIGN KEY (id_modulo) REFERENCES modulos(id_modulo)
+            FOREIGN KEY (id_modulo) REFERENCES modulos(id_modulo),
+            FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor)
             )";
             mysqli_query($conexion, $sql_asignatura);
 
@@ -91,6 +92,7 @@
             fecha_entr DATETIME, 
             id_modulo VARCHAR(10) NOT NULL, 
             nombre VARCHAR(30) NOT NULL, 
+            descripcion TEXT NOT NULL,  
             FOREIGN KEY (id_modulo) REFERENCES modulos(id_modulo) 
             )";
             mysqli_query($conexion, $sql_act);
@@ -107,7 +109,8 @@
 
             $sql_asistencia = "CREATE TABLE asistencia_$id_grupo(
             id_alumno INT NOT NULL, 
-            id_modulo VARCHAR(10), 
+            id_modulo VARCHAR(10) NOT NULL, 
+            asistencias TINYINT UNSIGNED DEFAULT 0,
             PRIMARY KEY (id_alumno, id_modulo),
             FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno),
             FOREIGN KEY (id_modulo) REFERENCES modulos(id_modulo)
@@ -116,7 +119,7 @@
 
             $sql_recursos = "CREATE TABLE recursos_$id_grupo(
             id_recurso INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-            id_modulo VARCHAR(10),
+            id_modulo VARCHAR(10) NOT NULL,
             tipo_recurso VARCHAR(1), 
             ruta VARCHAR(90),
             FOREIGN KEY (id_modulo) REFERENCES modulos(id_modulo)

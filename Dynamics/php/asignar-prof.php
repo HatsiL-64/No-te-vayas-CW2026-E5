@@ -25,9 +25,9 @@ if ($tipo_usuario == 3) {
     $lista_prof = array();
     $lista_modulos = array();
 
-    $sql2 = "SELECT profesor.id_profesor, usuarios.id_usuario, usuarios.nombre, usuarios.apellido_p, usuarios.apellido_m 
-            FROM profesor 
-            INNER JOIN usuarios ON profesor.id_usuario = usuarios.id_usuario";
+    $sql2 = "SELECT profesores.id_profesor, usuarios.id_usuario, usuarios.nombre, usuarios.apellido_p, usuarios.apellido_m 
+            FROM profesores 
+            INNER JOIN usuarios ON profesores.id_usuario = usuarios.id_usuario";
     $resultado = mysqli_query($conexion, $sql2);
     if ($resultado) {
         while ($fila = mysqli_fetch_assoc($resultado)) {
