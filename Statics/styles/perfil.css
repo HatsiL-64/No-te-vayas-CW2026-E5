@@ -1,0 +1,53 @@
+:root{
+    --azul-marino: #00296B;
+    --azul-mar: #003F88;
+    --azul-cielo: #00509D;
+    --dorado: #FDC500;
+    --amarillo-chillon: #FFD500;
+}
+.cuadro_alumno{
+    margin-top: 20px;
+    padding: 8px;
+    background-color: var(--azul-marino);
+    color: rgb(255, 255, 255);
+    width: 60vw;
+    height: 100px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;    
+    font-family: sans-serif;
+    background-color: #FFFFFF;
+}
+/*input[type="submit"]{
+    background-color: #8D9BB2;
+    padding: 8px 20px;
+    margin: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #000000;    
+}*/
+main{
+    max-width: 800px;
+    margin: 70px auto;
+    padding: 40px;
+    border-radius: 20px;
+}
+.cuestionario{
+    margin-top: 20px;
+    padding: 8px;
+    background-color: var(--dorado);
+    color: rgb(255, 255, 255);
+    width: 20vw;
+    height: 100px;
+    border-radius: 10px;
+    align-items: center;
+    display: flex;
+    gap: 15px;
+}
