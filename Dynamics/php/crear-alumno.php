@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'codigo_errores.php';
-if (!isset($_SESSION) || $_SESSION["tipo_usuario"] == 1) {
+if (!isset($_SESSION["usuario"]) || $_SESSION["tipo_usuario"] == 1) {
   header("Location: inicio.php");
   exit();
 }
