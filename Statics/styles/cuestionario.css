@@ -27,8 +27,17 @@ textarea{
     width: 90%;
     padding: 10px;
 }
+<<<<<<< HEAD
 label{
     display: block;
+=======
+label, #checkbox{
+    display: block;
+    margin: 10px;
+}
+#mod{
+    margin: 10px;
+>>>>>>> feature/crear-grupo
 }
 #pregunta-bloque{
     margin: 20px;

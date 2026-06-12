@@ -61,11 +61,7 @@ h1{
     color: rgb(253, 197, 0);
     width: 75vw;
 }
-.foto_perfil{
-    width: 70px;
-    background-color: white;
-    border-radius: 50%;
-}
+
 #mis_grupos{
     margin-top: 30px;
     padding: 30px;
