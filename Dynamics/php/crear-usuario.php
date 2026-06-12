@@ -1,9 +1,9 @@
 <?php
 session_start();
-/*if ($_SESSION["tipo_usuario"] != 3) {
+if ($_SESSION["tipo_usuario"] != 3) {
   header("Location: inicio.php");
   exit();
-}*/
+}
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
   if ($_POST["tipo_usuario"] == "alumno") {
     header("Location: crear-alumno.php");
