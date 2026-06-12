@@ -1,18 +1,20 @@
 <?php
+session_start();
 include 'layout.php';
 include 'config.php';
-session_start();
+include 'validaciones.php';
 
 $usuario = $_SESSION['usuario'];
-$sql1 = "SELECT tipo_usuario FROM usuarios WHERE id_usuario = '$usuario'";
-$resultado = mysqli_query($conexion, $sql1);
+/*$sql1 = "SELECT tipo_usuario FROM usuarios WHERE id_usuario = '$usuario'";
+$resultado = mysqli_query($conexion, $sql1);  
 $fila = mysqli_fetch_assoc($resultado);
-$tipo_usuario = $fila['tipo_usuario'];
+$tipo_usuario = $fila['tipo_usuario'];*/
+$tipo_usuario = $_SESSION["tipo_usuario"];
 
 if ($tipo_usuario == 3) {
     if (isset($_GET['grupo']) && isset($_GET['ete'])) {
-        $id_grupo = $_GET['grupo'];
-        $id_ete = $_GET['ete'];
+        $id_grupo = sanitizar_entrada($_GET['grupo']);
+        $id_ete = sanitizar_entrada($_GET['ete']);
         $actualizar = $_GET['actualizar'];
     } else if (isset($_POST['id_grupo']) && isset($_POST['id_ete'])) {
         $id_grupo = $_POST['id_grupo'];
@@ -21,6 +23,17 @@ if ($tipo_usuario == 3) {
         header("Location: crear-grupo.php");
         
     }
+
+    //Comprobacion de la existencia de lo obtenido por GET
+    //existencia del grupo
+    $sql = "SELECT COUNT(*) FROM grupos WHERE id_grupo = '" . $id_grupo . "' AND id_grupo = '" . $id_ete . "';";
+    $query = mysqli_query($conexion, $sql);
+    $respuesta = mysqli_fetch_assoc($query);
+    if($respuesta["COUNT(*)"] != 1){
+        header("Location: crear-grupo.php");
+        exit();
+    }
+    // ---------------------------------------------------
 
     $lista_prof = array();
     $lista_modulos = array();

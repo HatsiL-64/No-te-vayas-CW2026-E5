@@ -58,3 +58,11 @@ function codigo_error_valido($error){
     }
     return false;
 }
+
+function valida_plantel($plantel){
+    if(!is_numeric($plantel))
+        return false;
+    if($plantel < 1 || $plantel > 9)
+        return false;
+    return true;
+}
