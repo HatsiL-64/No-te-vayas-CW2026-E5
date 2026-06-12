@@ -85,7 +85,7 @@ if ($tipo_usuario == 3) {
     ?>
             <div id="cat_par">
                 <p>¡Profesor Guardado con éxito!</p>
-                <a href="asignar-prof.php?grupo=<?php echo $id_grupo; ?>&ete=<?php echo $id_ete; ?>">Añadir otro Profesor</a>
+                <a href="asignar-prof.php?grupo=<?php echo $id_grupo; ?>&ete=<?php echo $id_ete; ?>&actualizar=0">Añadir otro Profesor</a>
                 <a href="inicio.php">Terminar grupo</a>
             </div>
     <?php
