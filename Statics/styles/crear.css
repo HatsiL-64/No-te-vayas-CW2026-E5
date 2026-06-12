@@ -3,6 +3,16 @@
     background-color: #FDC500;
 }
 
+.notificacion_error{
+    padding: 50px;
+    background-color: #00509D;
+    color: white;
+}
+
+.notificacion_error h4{
+    color: red;
+}
+
 #nombre_seccion{
     padding: 10px;
     padding-left: 20px;

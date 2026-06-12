@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["tipo_usuario"])) {
+if (!isset($_SESSION) || !isset($_COOKIE)) {
     header("Location: ../../login.html");
 }
 include 'layout.php'
