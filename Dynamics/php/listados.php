@@ -12,7 +12,7 @@ $id = $alumno['id_alumno'];
             ON alumnos.id_alumno = calificaciones.id_alumno WHERE alumnos.id_grupo1 = '$id_grupo'
             GROUP BY alumnos.id_alumno";
 
-    $resultado_query = mysqli_query($conexion, $sql);
+    $resultado_query = mysqli_query($conexion, $sql) or die("Error en el query: " . mysqli_error($conexion));
 
     if ($resultado_query){
         while ($fila = mysqli_fetch_assoc($resultado_query)) {
@@ -26,7 +26,7 @@ $id = $alumno['id_alumno'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewpport" content ="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/No-te-vayas-CW2026-E5/Statics/styles/style.css">
+    <link rel="stylesheet" href="../../Statics/styles/style.css">
 </head>
 <body>
     <div class="contenedor-listado">
@@ -42,7 +42,8 @@ $id = $alumno['id_alumno'];
                     echo $alumno['apellido_m'];
                 echo "</a>";
                 echo "<br>";
-                echo "Promedio:" . $alumno['AVG(calificaciones.calificacion)'];
+                echo "Promedio:";
+                echo $alumno['AVG(calificaciones.calificacion)'];
                 echo "</h3>";
             echo "</div>";
             }
