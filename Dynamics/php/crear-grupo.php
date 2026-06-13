@@ -1,13 +1,15 @@
 <?php
     include 'layout.php';
     include 'config.php';
+    include 'validaciones.php';
     session_start();
     
     $usuario = $_SESSION['usuario'];
-    $sql1="SELECT tipo_usuario FROM usuarios WHERE id_usuario = $usuario";
+    /*$sql1="SELECT tipo_usuario FROM usuarios WHERE id_usuario = $usuario";
     $resultado= mysqli_query($conexion, $sql1);
     $fila= mysqli_fetch_assoc($resultado);
-    $tipo_usuario= $fila['tipo_usuario'];
+    $tipo_usuario= $fila['tipo_usuario'];*/
+    $tipo_usuario = $_SESSION["tipo_usuario"];
     $actualizar = 0;
     if($tipo_usuario == 3)
     {
@@ -38,7 +40,11 @@
         
         if($_SERVER["REQUEST_METHOD"] == 'POST')
         {
-            $nombre = $_POST["nombre"];
+            if(!valida_plantel($_POST["plantel"])){
+                header("Location: crear-grupo.php");
+                exit();
+            }
+            $nombre = sanitizar_entrada($conexion, $_POST["nombre"]);
             $plantel = $_POST["plantel"];
             $nombre_ete = $_POST["nombre_ete"];
 
