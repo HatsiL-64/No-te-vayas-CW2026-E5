@@ -18,7 +18,6 @@
     } else {
         $id_grupo = '61B'; 
         $id_modulo = 'CM1'; 
-        $g = 1;
     }
 
     $sql2 = "SELECT id_ete FROM modulos WHERE id_modulo = '$id_modulo'";
@@ -96,7 +95,7 @@
                     $confirma = 1; 
                 }
                 $ruta_temporal = $_FILES['archivo']['tmp_name'];
-                $carpeta_destino = "../../Statics/recursos-subidos/";
+                $carpeta_destino = "../../Statics/media/recursos-subidos/";
                 if (!file_exists($carpeta_destino)) {
                     mkdir($carpeta_destino, 0777, true);
                 }
