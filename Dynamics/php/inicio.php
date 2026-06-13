@@ -40,7 +40,8 @@
                             if ($alumno){
                                 echo "<div class = 'tarjeta'>";
                                 echo "<h3> Grupo:";
-                                echo  "<a href=\"./modulos.php?grupo=1\">" . $alumno['id_grupo1'] . "</a>";
+                                echo  "<a href=\"./modulos.php?grupo=\">" . $alumno['id_grupo1'] . "</a>";
+                                echo "<a href='./modulos.php?grupo=" . $alumno['id_grupo1'] . "'> </a>";
                                 echo"</h3>";
                                 echo "<p>";
                                 echo $alumno['nombre'];
