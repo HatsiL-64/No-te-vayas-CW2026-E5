@@ -27,18 +27,42 @@ textarea{
     width: 90%;
     padding: 10px;
 }
-<<<<<<< HEAD
-label{
-    display: block;
-=======
 label, #checkbox{
     display: block;
     margin: 10px;
 }
+#form-recursos label {
+    display: block;
+    gap: 10px;
+    text-align: left;
+}
 #mod{
     margin: 10px;
->>>>>>> feature/crear-grupo
 }
 #pregunta-bloque{
+    margin: 20px;
+}
+.contenedor-boton{
+    display: flex;
+    margin-top: 20px;
+    justify-content: flex-end;
+}
+.btn-enviar {
+    background-color: #00286B;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100px;
+}
+.btn-enviar:hover{
+    background-color: #FDC500;
+    color: black;
+}
+#error{
+    background-color: rgb(244, 114, 114);
+    padding: 10px;
     margin: 20px;
 }
