@@ -11,8 +11,7 @@ $id_grupo = '61B';
             ON alumnos.id_alumno = calificaciones.id_alumno WHERE alumnos.id_grupo1 = '$id_grupo'
             GROUP BY alumnos.id_alumno";
 
-    $resultado_query = mysqli_query($conexion, $sql) or die("Error en el query: " . mysqli_error($conexion));
-
+    $resultado_query = mysqli_query($conexion, $sql);
     if ($resultado_query){
         while ($fila = mysqli_fetch_assoc($resultado_query)) {
             $lista_alumnos[] = $fila;
