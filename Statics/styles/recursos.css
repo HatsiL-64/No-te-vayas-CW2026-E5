@@ -1,0 +1,61 @@
+h2{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}
+.cuadro_re{
+    height: 100px;
+    width: 600px;
+    background-color: rgb(96, 96, 167);
+
+}
+.recursos{
+    margin-top: 120px;
+}
+#archivos{
+    background-color:  rgb(173, 173, 174);
+    height: 400px;
+    width: 900px;
+    margin: auto;
+}
+#ejercicios{
+    background-color:  rgb(173, 173, 174);
+    height: 400px;
+    width: 900px;
+    margin: auto;
+}
+#enlaces{
+    background-color:  rgb(173, 173, 174);
+    height: 400px;
+    width: 900px;
+    margin: auto;
+}
+#scripts{
+    background-color:  rgb(173, 173, 174);
+    height: 400px;
+    width: 900px;
+    margin: auto;
+}
+
+#cuadro_arch{
+    height: 300px;
+    width: 800px;
+    background-color: #EBE19B;
+}
+
+#cuadro_ejer{
+    height: 300px;
+    width: 800px;
+    background-color: #EBE19B;
+}
+#cuadro_enl{
+    height: 300px;
+    width: 800px;
+    background-color: #EBE19B;
+}
+#cuadro_script{
+    height: 300px;
+    width: 800px;
+    background-color: #EBE19B;
+}
