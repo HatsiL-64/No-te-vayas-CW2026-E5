@@ -31,25 +31,6 @@
             <p><a href="./cerrar_sesion.php">Cerrar Sesión</a></p>
         </div>
     </nav>
-=======
-  <nav class="navbar">
-    <div class="nav-left">
-      <table id="logos">
-        <td><img class="logo" src="../../Statics/media/img/logo_ete.jpg" alt="Logo de los Estudios Tecnicos Especializados"></td>
-        <td><img class="logo" src="../../Statics/media/img/logo_unam.png" alt="Logo de la UNAM"></td>
-      </table>
-      <h1>No te vayas, QuédETE</h1>
-    </div>
-  </nav>
-  <nav>
-    <div class="menu_lateral">
-      <p><a href="./inicio.php">Inicio</a></p>
-      <p><a href="#">Mi Perfil</a></p>
-      <p><a href="#">Mensajes</a></p>
-      <p><a href="./cerrar_sesion.php">Cerrar Sesión</a></p>
-    </div>
-  </nav>
->>>>>>> 67279b2db030bb01239be277495b8fa435e27544
 </body>
 
 </html>
