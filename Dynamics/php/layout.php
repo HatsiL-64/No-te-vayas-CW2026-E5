@@ -20,10 +20,6 @@
                 <td><img class="logo" src="../../Statics/media/img/logo_unam.png" alt="Logo de la UNAM"></td>
             </table>
             <h1>No te vayas, QuédETE</h1>
-<<<<<<< HEAD
-            <img class="foto_perfil" id="perfil_encabezado" src="../../Statics/media/img/foto_default.jpg" alt="Foto de perfil">
-=======
->>>>>>> feature/crear-grupo
         </div>
     </nav>
     <nav>
