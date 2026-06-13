@@ -12,6 +12,13 @@ include 'layout.php';
 <body>
     <main>
         <h2 id="tit_mod">Módulos</h2>
+
+        <div class="contenedor_boton">
+            <a href="listados.php">
+                <h3 class="tit_lis">Ver listado de alumnos</h3>
+            </a>
+        </div>
+
         <section class="contenedor_modulos">
             <article class="modulos_impar">
                 <h3>
@@ -56,7 +63,6 @@ include 'layout.php';
                 <p>Mantenimiento preventivo y correctivo menor para computadoras personales</p>
             </article>
         </section>
-    </main>    
-</div>             
+    </main>                
 </body>
 </html>

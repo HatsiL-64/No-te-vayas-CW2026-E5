@@ -99,6 +99,8 @@
                 $query = mysqli_query($conexion, $sql);
                 //Vista
                 echo "<a href=\"./crear-usuario.php\">Crear usuario</a>";
+                echo "<br>";
+                echo "<a href=\"./crear-grupo.php\">Crear grupo</a>";
                 echo "<div id=\"mis_grupos\">";
                 while ($grupo = mysqli_fetch_assoc($query)){
                     $nombre_grupo = substr($grupo['id_grupo'], 1); 
