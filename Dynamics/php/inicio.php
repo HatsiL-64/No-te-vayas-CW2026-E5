@@ -21,72 +21,100 @@
 <body>
     <main class="contenido">
         <div id="Bienv">
-            <h2>Bienvenid@ </h2>
-        </div>
-
-        <div id="mis_grupos">
-            <?php
-                if ($tipo_usuario == 'A'){
-                    $sql ="SELECT id_grupo1, id_grupo2, ete.nombre FROM alumnos INNER JOIN grupos
-                            On alumnos.id_grupo1 = grupos.id_grupo INNER JOIN ete 
-                            On grupos.id_ete = ete.id_ete WHERE alumnos.id_usuario = '$id_usuario '";
-                    $resultado = mysqli_query($conexion, $sql);
-
-                    $alumno = mysqli_fetch_assoc($resultado);
-                    if ($alumno){
-                        echo "<div class = 'tarjeta'>";
-                        echo "<h3> Grupo:";
-                        echo $alumno['id_grupo1'];
-                        echo"</h3>";
-                        echo "<p>";
-                        echo $alumno['nombre'];
-                        echo "</p>";
-                        echo"</div>";
-
-                        if ($alumno['id_grupo2'] != NULL){
-                            echo "<div class='tarjeta'>";
-                            echo "<h3> Grupo:";
-                            echo $alumno['id_grupo2'];
-                            echo"</h3>";
-                            echo "<p>";
-                            echo $alumno['nombre'];
-                            echo "</p>";
-                            echo"</div>";
-
-                        }
-                    }
-                }
-                if ($tipo_usuario == 'p'){
-                    $sql_profesor = "SELECT id_profesor FROM profesor WHERE id_usuario = '$id_usuario'";
-
-                    $resultado_profesor = mysqli_query($conexion,  $sql_profesor);
-                    $profesor = mysqli_fetch_assoc($resultado_profesor);
-
-                    if ($profesor){
-                        $id_profesor = $profesor['id_profesor'];
-
-                        $sql_grupos = "SELECT grupos.id_grupo, ete.nombre FROM grupos 
-                                        INNER JOIN ete On grupos.id_ete = ete.id_ete
-                                        WHERE grupos.id_profesor = '$id_profesor'";
-
-                        $resultado_grupos = mysqli_query($conexion, $sql_grupos);
-
-                        while ($grupo = mysqli_fetch_assoc($resultado_grupos)) {
-
-                        echo "<div class='tarjeta'>";
-                        echo "<h3>";
-                        echo $grupo['id_grupo'];
-                        echo "</h3>";
-
-                        echo "<p>";
-                        echo $grupo['nombre'];
-                        echo "</p>";
-                        echo "</div>";
-                        }
-                    }
-                }
+            <?php    
+                echo "<h2>Bienvenid@ " . $_SESSION['nombre'] ."</h2>";
             ?>
         </div>
+        <?php
+            if($_SESSION['tipo_usuario'] != 3){
+        ?>        
+                <div id="mis_grupos">
+                    <?php
+                        if ($tipo_usuario == 1){
+                            $sql ="SELECT id_grupo1, id_grupo2, ete.nombre FROM alumnos INNER JOIN grupos
+                                    On alumnos.id_grupo1 = grupos.id_grupo INNER JOIN ete 
+                                    On grupos.id_ete = ete.id_ete WHERE alumnos.id_usuario = '$id_usuario '";
+                            $resultado = mysqli_query($conexion, $sql);
+
+                            $alumno = mysqli_fetch_assoc($resultado);
+                            if ($alumno){
+                                echo "<div class = 'tarjeta'>";
+                                echo "<h3> Grupo:";
+                                echo  "<a href=\"./modulos.php?grupo=1\">" . $alumno['id_grupo1'] . "</a>";
+                                echo"</h3>";
+                                echo "<p>";
+                                echo $alumno['nombre'];
+                                echo "</p>";
+                                echo"</div>";
+
+                                if ($alumno['id_grupo2'] != NULL){
+                                    echo "<div class='tarjeta'>";
+                                    echo "<h3> Grupo:";
+                                    echo  "<a href=\"./modulos.php?grupo=2\">" . $alumno['id_grupo2'] . "</a>";
+                                    echo"</h3>";
+                                    echo "<p>";
+                                    echo $alumno['nombre'];
+                                    echo "</p>";
+                                    echo"</div>";
+
+                                }
+                            }
+                        }
+                        if ($tipo_usuario == 2){
+                            $sql_profesor = "SELECT id_profesor FROM profesor WHERE id_usuario = '$id_usuario'";
+
+                            $resultado_profesor = mysqli_query($conexion,  $sql_profesor);
+                            $profesor = mysqli_fetch_assoc($resultado_profesor);
+
+                            if ($profesor){
+                                $id_profesor = $profesor['id_profesor'];
+
+                                $sql_grupos = "SELECT grupos.id_grupo, ete.nombre FROM grupos 
+                                                INNER JOIN ete On grupos.id_ete = ete.id_ete
+                                                WHERE grupos.id_profesor = '$id_profesor'";
+
+                                $resultado_grupos = mysqli_query($conexion, $sql_grupos);
+
+                                while ($grupo = mysqli_fetch_assoc($resultado_grupos)) {
+
+                                echo "<div class='tarjeta'>";
+                                echo "<h3>";
+                                echo $grupo['id_grupo'];
+                                echo "</h3>";
+
+                                echo "<p>";
+                                echo $grupo['nombre'];
+                                echo "</p>";
+                                echo "</div>";
+                                }
+                            }
+                        }
+                    ?>
+                </div>
+        <?php
+            }
+            else{
+                //Consultas
+                $sql = "SELECT grupos.id_grupo, ete.nombre FROM grupos INNER JOIN ete On grupos.id_ete = ete.id_ete;";
+                $query = mysqli_query($conexion, $sql);
+                //Vista
+                echo "<a href=\"./crear-usuario.php\">Crear usuario</a>";
+                echo "<div id=\"mis_grupos\">";
+                while ($grupo = mysqli_fetch_assoc($query)){
+                    $nombre_grupo = substr($grupo['id_grupo'], 1); 
+                    echo "<div class='tarjeta'>";
+                    echo "<h3>";
+                    echo $nombre_grupo;
+                    echo "</h3>";
+
+                    echo "<p>";
+                    echo $grupo['nombre'];
+                    echo "</p>";
+                    echo "</div>";
+                }
+                echo "</div>";
+            }    
+        ?>        
     </main>
 </body>
 

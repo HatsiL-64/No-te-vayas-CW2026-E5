@@ -13,7 +13,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
     <nav class="navbar">
         <div class="nav-left">
             <table id="logos">
@@ -27,7 +26,7 @@
         <div class="menu_lateral">
             <p><a href="./inicio.php">Inicio</a></p>
             <p><a href="#">Mi Perfil</a></p>
-            <p><a href="#">Mensajes</a></p>
+            <p><a href="./mensasjes.php">Mensajes</a></p>
             <p><a href="./cerrar_sesion.php">Cerrar Sesión</a></p>
         </div>
     </nav>
