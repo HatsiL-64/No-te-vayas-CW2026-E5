@@ -31,12 +31,7 @@
     top: 100px;
     text-align: center;
 }
-.tit_lis{
-    position: relative;
-    top: 500px;
-    text-align: center;
-    background-color: red;
-}
+
 .contenedor_modulos{
     position: relative;
 }
