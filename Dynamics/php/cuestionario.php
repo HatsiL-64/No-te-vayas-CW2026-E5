@@ -1,7 +1,11 @@
 <?php
+    session_start();
     include 'layout.php';
     include 'config.php';
-    session_start();
+    if($_SESSION["tipo_usuario"] != 1){
+        header("Location: inicio.php");
+        exit();    
+    }
     $usuario = $_SESSION['usuario'];
 
     $sql1= "SELECT id_alumno FROM alumnos WHERE id_usuario = $usuario";
