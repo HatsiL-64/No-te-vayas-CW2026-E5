@@ -3,13 +3,14 @@ include 'conexion.php';
 
 $id_grupo = '61B';
 $id_alumno = '101010';
+$id_modulo = 'Programación estructurada';
 
     function asistencias_alumno($conexion, $id_alumno)
     {
         $sql = "SELECT asistencia.id_alumno, asistencia.d_asistidos, asistencia.d_total FROM asistencia WHERE asistencia.id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
 
-        if ($registro = mysqli_fetch_assoc($resultado_query));{
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
             $asistidos =  $registro["d_asistidos"];
             $total = $registro["d_total"];
             $promedio_alumno = ($asistidos / $total)*100;
@@ -21,7 +22,7 @@ $id_alumno = '101010';
 
     function asistencias_grupal($conexion, $id_grupo)
     {
-        $sql = "SELECT asistencia.id_grupo, asistencia.d_total, AVG(asistencia.d_asistidos) FROM asistencia WHERE id_grupo = '$id_grupo'";
+        $sql = "SELECT asistencia.id_grupo, asistencia.d_total, AVG(asistencia.d_asistidos) FROM asistencia WHERE id_grupo = '$id_grupo' AND id_modulo = '$id_modulo'";
         $resultado_query = mysqli_query($conexion, $sql);
 
         if ($registro = mysqli_fetch_assoc($resultado_query));{
@@ -32,7 +33,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de asistencia es: " . asistencias_grupal($conexion, $id_grupo); echo "<p>";
+    echo "El promedio de asistencia  por modulo es: " . asistencias_grupal($conexion, $id_grupo); echo "<p>";
 
 
     function calificaciones_alumnos($conexion, $id_alumno)

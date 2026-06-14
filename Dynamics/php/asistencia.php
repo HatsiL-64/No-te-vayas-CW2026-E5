@@ -1,5 +1,6 @@
 <?php
 include 'layout.php';
+include 'estadisticas';
 ?>
 <!DOCTYPE html>
 <html lang="es">
