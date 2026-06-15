@@ -1,14 +1,92 @@
-h1{
+/* Vaiavles de Color Globales */
+:root{
+    --azul-marino: #00296B;
+    --azul-mar: #003F88;
+    --azul-cielo: #00509D;
+    --dorado: #FDC500;
+    --amarillo-chillon: #FFD500;
+}
+
+.main_asi {
+    margin-top: 140px;    /* Espacio para que no se pegue al header amarillo */
+    margin-left: 280px;   /* Empuja TODO el contenido a la derecha del menú azul */
+    padding: 20px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+h1 {
     text-align: center;
+    color: var(--azul-marino);
+    margin-bottom: 25px;
 }
-.tabla, th, td{
-    border: 3px solid rgb(11, 100, 118);
+
+h3 {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.tabla {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto; /* La centra automáticamente en su espacio */
     border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;   
 }
-.tabla{
-    position: fixed;
-    left: 300px;
+
+/* Estilo para los encabezados */
+.tabla th {
+    background-color: var(--azul-marino);
+    color: #ffffff;
+    padding: 12px 15px;
+    font-weight: 600;
+    text-align: left;
 }
-.main_asi{
-    margin-top: 120px;
+
+/* Estilo para las celdas */
+.tabla td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+}
+
+.tabla tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Efecto hover */
+.tabla tr:hover {
+    background-color: #f1f3f5; /* Resalta la fila al pasar el mouse */
+}
+
+.alumnos {
+    font-weight: bold;
+    color: var(--azul-marino);
+}
+
+.btn_guardar {
+    background-color: var(--dorado); 
+    color: var(--azul-marino);            
+    border: none;
+    padding: 10px 25px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto; 
+    transition: background 0.3s ease;
+}
+
+.btn_guardar:hover {
+    background-color: #d4ac0d; /* Se oscurece al pasar el mouse */
+}
+
+.tabla input[type="number"] {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
 }
