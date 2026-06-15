@@ -90,4 +90,10 @@ h2{
     padding: 20px;
     margin-bottom: 15px;
     box-shadow: 3px 3px 0px #000000;
+    width: 70vw;
+}
+
+.contenedor-listado{
+    margin-top: 120px;
+    margin-left: 18vw;
 }

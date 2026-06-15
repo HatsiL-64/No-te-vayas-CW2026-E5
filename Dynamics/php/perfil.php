@@ -1,8 +1,22 @@
 <?php
 include 'config.php';
 include 'layout.php';
+session_start();
+    $usuario = $_SESSION['usuario'];
+    $sql1 = "SELECT tipo_usuario FROM usuarios WHERE id_usuario = '$usuario'";
+    $resultado = mysqli_query($conexion, $sql1);
+    $fila = mysqli_fetch_assoc($resultado);
+    $tipo_usuario = $fila['tipo_usuario'];  
 
-$id_alumno = $_GET['id_alumno'];
+    if($tipo_usuario == 2 || $tipo_usuario == 3)
+        $id_alumno = $_GET['id_alumno'];
+    else
+    {
+        $sql2 = "SELECT id_alumno FROM alumnos WHERE id_usuario = $usuario";
+        $resultado2 = mysqli_query($conexion, $sql2);
+        $fila = mysqli_fetch_assoc($resultado2);
+        $id_alumno = $fila['id_alumno']; 
+    }
 
 $sql = "SELECT alumnos.id_alumno, alumnos.id_grupo1, alumnos.id_grupo2, usuarios.nombre, usuarios.apellido_p, usuarios.apellido_m,
         usuarios.correo FROM alumnos INNER JOIN usuarios ON alumnos.id_usuario = usuarios.id_usuario WHERE alumnos.id_alumno = $id_alumno";

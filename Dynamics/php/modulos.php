@@ -31,7 +31,7 @@
         <h2 id="tit_mod">Módulos</h2>
 
         <div class="contenedor-boton">
-            <a class="pag" href="listados.php">
+            <a class="pag" href="listados.php?grupo=<?php echo $id_grupo?>">
                 Ver listado de alumnos
             </a>
         </div>

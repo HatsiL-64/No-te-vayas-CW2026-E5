@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION["usuario"]) || !isset($_COOKIE["usuario"])) {
+    if (!isset($_SESSION) || !isset($_COOKIE)) {
         header("Location: ../../login.html");
     }
     include 'layout.php';
@@ -40,8 +40,7 @@
                             if ($alumno){
                                 echo "<div class = 'tarjeta'>";
                                 echo "<h3> Grupo:";
-                                echo  "<a href=\"./modulos.php?grupo=\">" . $alumno['id_grupo1'] . "</a>";
-                                echo "<a href='./modulos.php?grupo=" . $alumno['id_grupo1'] . "'> </a>";
+                                echo "<a class='pag' href='./modulos.php?grupo=" . $alumno['id_grupo1'] . "'>" . $alumno['id_grupo1'] . "</a>";
                                 echo"</h3>";
                                 echo "<p>";
                                 echo $alumno['nombre'];
@@ -51,7 +50,7 @@
                                 if ($alumno['id_grupo2'] != NULL){
                                     echo "<div class='tarjeta'>";
                                     echo "<h3> Grupo:";
-                                    echo  "<a href=\"./modulos.php?grupo=2\">" . $alumno['id_grupo2'] . "</a>";
+                                    echo "<a class='pag' href='./modulos.php?grupo=" . $alumno['id_grupo2'] . "'>" . $alumno['id_grupo2'] . "</a>";
                                     echo"</h3>";
                                     echo "<p>";
                                     echo $alumno['nombre'];
@@ -62,13 +61,36 @@
                             }
                         }
                         if ($tipo_usuario == 2){
-                            $sql_profesor = "SELECT id_profesor FROM profesor WHERE id_usuario = '$id_usuario'";
+                            $sql_profesor = "SELECT id_profesor FROM profesores WHERE id_usuario = '$id_usuario'";
 
                             $resultado_profesor = mysqli_query($conexion,  $sql_profesor);
                             $profesor = mysqli_fetch_assoc($resultado_profesor);
 
-                            if ($profesor){
+                            if ($profesor)
+                            {
                                 $id_profesor = $profesor['id_profesor'];
+                                $sql_todos_grupos = "SELECT grupos.id_grupo, ete.nombre FROM grupos 
+                                                    INNER JOIN ete ON grupos.id_ete = ete.id_ete";
+                                $resultado_todos = mysqli_query($conexion, $sql_todos_grupos);
+                                while ($grupo = mysqli_fetch_assoc($resultado_todos)) {
+                                    $id_grupo_actual = $grupo['id_grupo'];
+                                    $tabla_asignaturas = "asignaturas_" . $id_grupo_actual; 
+                                    $sql_revisar = "SELECT COUNT(*) as total FROM $tabla_asignaturas WHERE id_profesor = '$id_profesor'";
+                                    $resultado_revisar = mysqli_query($conexion, $sql_revisar);
+                                    if ($resultado_revisar) {
+                                        $fila_revisar = mysqli_fetch_assoc($resultado_revisar);
+                                        if ($fila_revisar['total'] > 0) {
+                                            echo "<div class='tarjeta'>";
+                                            echo "<h3>";
+                                            echo "<a class='pag' href='modulos.php?grupo=" . $id_grupo_actual . "'>" . $id_grupo_actual . "</a>";
+                                            echo "</h3>";
+                                            echo "<p>" . $grupo['nombre'] . "</p>";
+                                            echo "</div>";
+                                        }
+                                    }
+                                }
+                            }
+                                /*$id_profesor = $profesor['id_profesor'];
 
                                 $sql_grupos = "SELECT grupos.id_grupo, ete.nombre FROM grupos 
                                                 INNER JOIN ete On grupos.id_ete = ete.id_ete
@@ -88,7 +110,7 @@
                                 echo "</p>";
                                 echo "</div>";
                                 }
-                            }
+                            }*/
                         }
                     ?>
                 </div>

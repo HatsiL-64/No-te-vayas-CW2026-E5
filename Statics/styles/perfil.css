@@ -1,3 +1,7 @@
+body{
+    margin-top: 120px;
+    margin-left: 18vw;
+}
 :root{
     --azul-marino: #00296B;
     --azul-mar: #003F88;
