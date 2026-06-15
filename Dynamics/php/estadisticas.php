@@ -1,26 +1,29 @@
 <?php
 include 'conexion.php';
 
-$id_grupo = '61B';
+// -- PRUEBA CON DATOS SIMULADOS
+/*$id_grupo = '61B';
 $id_alumno = '101010';
-$id_modulo = 'Programación estructurada';
+$id_modulo = 'Programación estructurada';*/
 
-    function asistencias_alumno($conexion, $id_alumno)
+    function asistencias_alumno($conexion, $id_alumno, $id_modulo)
     {
-        $sql = "SELECT asistencia.id_alumno, asistencia.d_asistidos, asistencia.d_total FROM asistencia WHERE asistencia.id_alumno = '$id_alumno'";
+        $sql = "SELECT asistencia.id_alumno, asistencia.d_asistidos, asistencia.d_total FROM asistencia WHERE asistencia.id_alumno = '$id_alumno' AND id_modulo = '$id_modulo'";
         $resultado_query = mysqli_query($conexion, $sql);
 
         if ($registro = mysqli_fetch_assoc($resultado_query)){
             $asistidos =  $registro["d_asistidos"];
             $total = $registro["d_total"];
-            $promedio_alumno = ($asistidos / $total)*100;
-            return $promedio_alumno;
+            if ($total > 0) {
+                $promedio_alumno = ($asistidos / $total)*100;
+                return $promedio_alumno;
+            }
         }
         return 0;
     }
-    echo "El promedio de asistencia por alumno es: " . asistencias_alumno($conexion, $id_alumno); echo "<p>";
+    //echo "El promedio de asistencia por alumno es: " . asistencias_alumno($conexion, $id_alumno, $id_modulo); echo "<p>";
 
-    function asistencias_grupal($conexion, $id_grupo)
+    function asistencias_grupal($conexion, $id_grupo, $id_modulo)
     {
         $sql = "SELECT asistencia.id_grupo, asistencia.d_total, AVG(asistencia.d_asistidos) FROM asistencia WHERE id_grupo = '$id_grupo' AND id_modulo = '$id_modulo'";
         $resultado_query = mysqli_query($conexion, $sql);
@@ -33,7 +36,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de asistencia  por modulo es: " . asistencias_grupal($conexion, $id_grupo); echo "<p>";
+    //echo "El promedio de asistencia  por modulo es: " . asistencias_grupal($conexion, $id_grupo, $id_modulo); echo "<p>";
 
 
     function calificaciones_alumnos($conexion, $id_alumno)
@@ -58,7 +61,7 @@ $id_modulo = 'Programación estructurada';
         }
         
     }
-    echo "El promedio de tus calificaciones es: " . calificaciones_alumnos($conexion, $id_alumno); echo "<p>";
+    //echo "El promedio de tus calificaciones es: " . calificaciones_alumnos($conexion, $id_alumno); echo "<p>";
     
     function calificaciones_grupo ($conexion, $id_grupo)
     {
@@ -73,7 +76,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio por grupo de calificaciones es: " . calificaciones_grupo($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio por grupo de calificaciones es: " . calificaciones_grupo($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_usuario_p1($conexion, $id_alumno)
     {
@@ -96,7 +99,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de las preguntas he es: " . cuesti_usuario_p1($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de las preguntas he es: " . cuesti_usuario_p1($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p1($conexion, $id_grupo)
     {
@@ -119,7 +122,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la pregunta he por grupo es: " . cuesti_grupo_p1($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la pregunta he por grupo es: " . cuesti_grupo_p1($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_usuario_p2($conexion, $id_alumno)
     {
@@ -142,7 +145,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta t es: " . cuesti_usuario_p2($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la segunda pregunta t es: " . cuesti_usuario_p2($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p2($conexion, $id_grupo)
     {
@@ -165,7 +168,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta por grupo t es: " . cuesti_grupo_p2($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la segunda pregunta por grupo t es: " . cuesti_grupo_p2($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_alumno_p3($conexion, $id_alumno)
     {
@@ -188,7 +191,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta mye es: " . cuesti_alumno_p3($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la segunda pregunta mye es: " . cuesti_alumno_p3($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p3($conexion, $id_grupo)
     {
@@ -211,7 +214,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta por grupo mye es: " . cuesti_grupo_p3($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la segunda pregunta por grupo mye es: " . cuesti_grupo_p3($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_alumno_p4($conexion, $id_alumno)
     {
@@ -234,7 +237,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la 4° pregunta aa es: " . cuesti_alumno_p4($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la 4° pregunta aa es: " . cuesti_alumno_p4($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p4($conexion, $id_grupo)
     {
@@ -257,7 +260,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la 4° pregunta aa por grupo es: " . cuesti_grupo_p4($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la 4° pregunta aa por grupo es: " . cuesti_grupo_p4($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_alumno_p5($conexion, $id_alumno)
     {
@@ -280,7 +283,7 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la 5° pregunta ec es: " . cuesti_alumno_p5($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la 5° pregunta ec es: " . cuesti_alumno_p5($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p5($conexion, $id_grupo)
     {
@@ -303,6 +306,6 @@ $id_modulo = 'Programación estructurada';
         }
         return 0;
     }
-    echo "El promedio de la 5° pregunta ec por grupo es: " . cuesti_grupo_p5($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la 5° pregunta ec por grupo es: " . cuesti_grupo_p5($conexion, $id_grupo);  echo "<p>";
 
 ?>
