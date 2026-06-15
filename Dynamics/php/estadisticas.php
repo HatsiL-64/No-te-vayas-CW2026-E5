@@ -1,15 +1,17 @@
 <?php
-include 'conexion.php';
+include_once 'config.php';
 
-$id_grupo = '61B';
-$id_alumno = '101010';
+//$id_grupo = '61B';
+//$id_alumno = '101010';
 
-    function asistencias_alumno($conexion, $id_alumno)
+    function asistencias_alumno($conexion, $id_alumno, $id_grupo)
     {
-        $sql = "SELECT asistencia.id_alumno, asistencia.d_asistidos, asistencia.d_total FROM asistencia WHERE asistencia.id_alumno = '$id_alumno'";
+        $sql = "SELECT asistencia_$id_grupo.id_alumno, asistencia_$id_grupo.d_asistidos, asistencia_$id_grupo.d_total FROM asistencia_$id_grupo WHERE asistencia_$id_grupo.id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
-
-        if ($registro = mysqli_fetch_assoc($resultado_query));{
+        if ($resultado_query === false) {
+            return 0; 
+        }
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
             $asistidos =  $registro["d_asistidos"];
             $total = $registro["d_total"];
             $promedio_alumno = ($asistidos / $total)*100;
@@ -17,32 +19,37 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de asistencia por alumno es: " . asistencias_alumno($conexion, $id_alumno); echo "<p>";
+    //echo "El promedio de asistencia por alumno es: " . asistencias_alumno($conexion, $id_alumno, $id_grupo); echo "<p>";
 
     function asistencias_grupal($conexion, $id_grupo)
     {
-        $sql = "SELECT asistencia.id_grupo, asistencia.d_total, AVG(asistencia.d_asistidos) FROM asistencia WHERE id_grupo = '$id_grupo'";
+        $sql = "SELECT asistencia_$id_grupo.id_grupo, asistencia_$id_grupo.d_total, AVG(asistencia_$id_grupo.d_asistidos) FROM asistencia_$id_grupo";
         $resultado_query = mysqli_query($conexion, $sql);
-
-        if ($registro = mysqli_fetch_assoc($resultado_query));{
-            $asistidos =  $registro["AVG(asistencia.d_asistidos)"];
+        if ($resultado_query === false) {
+            return 0; 
+        }
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
+            $asistidos =  $registro["AVG(asistencia_$id_grupo.d_asistidos)"];
             $total = $registro["d_total"];
             $promedio_grupo = ($asistidos / $total)*100;
             return $promedio_grupo;
         }
         return 0;
     }
-    echo "El promedio de asistencia es: " . asistencias_grupal($conexion, $id_grupo); echo "<p>";
+    //echo "El promedio de asistencia es: " . asistencias_grupal($conexion, $id_grupo); echo "<p>";
 
 
-    function calificaciones_alumnos($conexion, $id_alumno)
+    function calificaciones_alumnos($conexion, $id_alumno, $id_grupo)
     {
         $suma_calificaciones = 0;
         $total_calificaciones = 0;
         $caliicacion_maxima = 10;
 
-        $sql = "SELECT calificacion FROM calificaciones WHERE id_alumno = '$id_alumno'";
+        $sql = "SELECT calificacion FROM calificaciones_$id_grupo WHERE id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
+        if ($resultado_query === false) {
+            return 0; 
+        }
 
         if ($resultado_query){
             while ($fila = mysqli_fetch_assoc($resultado_query)){
@@ -57,14 +64,17 @@ $id_alumno = '101010';
         }
         
     }
-    echo "El promedio de tus calificaciones es: " . calificaciones_alumnos($conexion, $id_alumno); echo "<p>";
+    //echo "El promedio de tus calificaciones es: " . calificaciones_alumnos($conexion, $id_alumno, $id_grupo); echo "<p>";
     
     function calificaciones_grupo ($conexion, $id_grupo)
     {
-        $sql = "SELECT SUM(calificacion), COUNT(calificacion) FROM calificaciones WHERE id_grupo = '$id_grupo'";
+        $sql = "SELECT SUM(calificacion), COUNT(calificacion) FROM calificaciones_$id_grupo";
         $resultado_query = mysqli_query($conexion, $sql);
+        if ($resultado_query === false) {
+            return 0; 
+        }
         
-        if ($registro = mysqli_fetch_assoc($resultado_query));{
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
             $suma_calificaciones =  $registro["SUM(calificacion)"];
             $total = $registro["COUNT(calificacion)"];
             $calificacion_grupo = ($suma_calificaciones / $total);
@@ -72,7 +82,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio por grupo de calificaciones es: " . calificaciones_grupo($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio por grupo de calificaciones es: " . calificaciones_grupo($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_usuario_p1($conexion, $id_alumno)
     {
@@ -95,7 +105,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de las preguntas he es: " . cuesti_usuario_p1($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de las preguntas he es: " . cuesti_usuario_p1($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p1($conexion, $id_grupo)
     {
@@ -118,7 +128,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la pregunta he por grupo es: " . cuesti_grupo_p1($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la pregunta he por grupo es: " . cuesti_grupo_p1($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_usuario_p2($conexion, $id_alumno)
     {
@@ -141,7 +151,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta t es: " . cuesti_usuario_p2($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la segunda pregunta t es: " . cuesti_usuario_p2($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p2($conexion, $id_grupo)
     {
@@ -164,7 +174,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta por grupo t es: " . cuesti_grupo_p2($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la segunda pregunta por grupo t es: " . cuesti_grupo_p2($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_alumno_p3($conexion, $id_alumno)
     {
@@ -187,7 +197,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta mye es: " . cuesti_alumno_p3($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la segunda pregunta mye es: " . cuesti_alumno_p3($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p3($conexion, $id_grupo)
     {
@@ -210,7 +220,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la segunda pregunta por grupo mye es: " . cuesti_grupo_p3($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la segunda pregunta por grupo mye es: " . cuesti_grupo_p3($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_alumno_p4($conexion, $id_alumno)
     {
@@ -233,7 +243,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la 4° pregunta aa es: " . cuesti_alumno_p4($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la 4° pregunta aa es: " . cuesti_alumno_p4($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p4($conexion, $id_grupo)
     {
@@ -256,7 +266,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la 4° pregunta aa por grupo es: " . cuesti_grupo_p4($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la 4° pregunta aa por grupo es: " . cuesti_grupo_p4($conexion, $id_grupo);  echo "<p>";
 
     function cuesti_alumno_p5($conexion, $id_alumno)
     {
@@ -279,7 +289,7 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la 5° pregunta ec es: " . cuesti_alumno_p5($conexion, $id_alumno);  echo "<p>";
+    //echo "El promedio de la 5° pregunta ec es: " . cuesti_alumno_p5($conexion, $id_alumno);  echo "<p>";
 
     function cuesti_grupo_p5($conexion, $id_grupo)
     {
@@ -302,6 +312,6 @@ $id_alumno = '101010';
         }
         return 0;
     }
-    echo "El promedio de la 5° pregunta ec por grupo es: " . cuesti_grupo_p5($conexion, $id_grupo);  echo "<p>";
+    //echo "El promedio de la 5° pregunta ec por grupo es: " . cuesti_grupo_p5($conexion, $id_grupo);  echo "<p>";
 
 ?>
