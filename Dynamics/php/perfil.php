@@ -4,6 +4,7 @@ session_start();
     include 'estadisticas.php';
     include_once 'config.php';
     include 'procesar_cookies.php';
+    include 'riesgo.php';
     if (!isset($_SESSION["tipo_usuario"])) {
         if(isset($_COOKIE["usuario"]))
             procesar_cookies();        
@@ -81,6 +82,37 @@ $alumno = mysqli_fetch_assoc($resultado_query);
         </div>
         <?php
         $id_grupo1 = $alumno['id_grupo1'];
+        if($tipo_usuario == 2 || $tipo_usuario == 3){
+            $porcentaje_riesgo = calc_riesgo($conexion, $id_alumno, $id_grupo1);
+            echo "<div class='fila-riesgo'>";
+            echo "<div id='riesgo'> <h3> Riesgo Deserción </h3> </div>";
+            if ($porcentaje_riesgo >= 75) {
+                echo "<div class='riesgo card-rojo'> <h2>$id_grupo1: $porcentaje_riesgo%</h2></div>";
+            } 
+            elseif ($porcentaje_riesgo >= 40 && $porcentaje_riesgo < 75) {
+                echo "<div class='riesgo card-naranja'> <h2>$id_grupo1: $porcentaje_riesgo%</h2></div>";
+            } 
+            else {
+                echo "<div class='riesgo card-azul'> <h2>$id_grupo1: $porcentaje_riesgo%</h2></div>";
+            }
+
+            if ($alumno['id_grupo2'] != NULL){
+                $id_grupo2 = $alumno['id_grupo2'];
+                $porcentaje_riesgo = calc_riesgo($conexion, $id_alumno, $id_grupo2);
+                if ($porcentaje_riesgo >= 75) {
+                    echo "<div class='riesgo card-rojo'> <h2>$id_grupo2: $porcentaje_riesgo%</h2></div>";
+                } 
+                elseif ($porcentaje_riesgo >= 40 && $porcentaje_riesgo < 75) {
+                    echo "<div class='riesgo card-naranja'> <h2>$id_grupo2: $porcentaje_riesgo%</h2></div>";
+                } 
+                else {
+                    echo "<div class='riesgo card-azul'> <h2>$id_grupo2: $porcentaje_riesgo%</h2></div>";
+                }
+            }
+            echo "</div>";
+        }
+
+
         $sql4 = "SELECT id_ete FROM grupos WHERE id_grupo = '$id_grupo1'";
         $resultado4 = mysqli_query($conexion, $sql4);
         $fila4 = mysqli_fetch_assoc($resultado4);

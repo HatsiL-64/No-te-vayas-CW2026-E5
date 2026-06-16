@@ -23,10 +23,6 @@ $id_modulo = 'Programación estructurada';*/
         }
         return 0;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8738b25fbcb5b3cc973d2c8c10d5bf9fde45fff4
     function asistencias_alumno($conexion, $id_alumno, $id_grupo, $id_modulo)
     {
         $sql = "SELECT asistencia_$id_grupo.id_alumno, asistencia_$id_grupo.d_asistidos, asistencia_$id_grupo.d_totales FROM asistencia_$id_grupo WHERE asistencia_$id_grupo.id_alumno = '$id_alumno' AND id_modulo = '$id_modulo'";

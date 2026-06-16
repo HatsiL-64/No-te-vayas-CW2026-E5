@@ -55,9 +55,58 @@ main{
     display: flex;
     gap: 15px;
 }
-#cuestionario{
+
+#cuestionario {
     background-color: var(--dorado);
 }
-#estadisticas{
+
+#estadisticas {
     background-color: var(--azul-marino);
+}
+
+.fila-riesgo {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    gap: 20px;         
+    margin-top: 20px;
+    margin-bottom: 40px;   
+}
+
+#riesgo {
+    background-color: #EBE19B;
+    margin-top: 0 !important; 
+    padding: 8px;
+    width: 20vw;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.riesgo {
+    padding: 10px 20px;  
+    margin: 0 !important;  
+    border-radius: 20px;
+    width: 20vw;
+    text-align: center;
+}
+
+.riesgo h2 {
+    margin: 0;
+}
+
+.card-rojo {
+    background-color: #c40000;
+    color: white;
+}
+
+.card-naranja {
+    background-color: #ff9500;
+    color: rgb(0, 0, 0);
+}
+
+.card-azul {
+    background-color: #8D9BB2;
+    color: rgb(0, 0, 0);
 }

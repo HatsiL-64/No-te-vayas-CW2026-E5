@@ -55,7 +55,7 @@
                     VALUES ('$tipo_act', $fecha_asig, $fecha_entr, '$id_modulo', '$nombre', '$descripcion')";
         
         if (mysqli_query($conexion, $sql_insert)) {
-            header("Location: actividades.php?grupo=$id_grupo&modulo=$id_modulo");
+            header("Location: tareas.php?grupo=$id_grupo&modulo=$id_modulo");
             exit();
         }
     }
@@ -75,7 +75,7 @@
         <?php if ($tipo_usuario == 2): ?>
             <section class="tareas">
                 <h2> Publicar Nueva Actividad / Tarea</h2>
-                <form action="actividades.php?grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>" method="POST">
+                <form action="tareas.php?grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>" method="POST">
                     <label>Tipo:</label>
                     <select name="tipo_act" required>
                         <option value="Tarea">Tarea</option>
@@ -109,7 +109,7 @@
                 while ($tar = mysqli_fetch_assoc($res_tareas)): ?>
                     <article class="tarea">
                         <h3>
-                            <a href="detalle_actividad.php?id=<?php echo $tar['id_actividad']; ?>&grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>">
+                            <a href="tarea1.php?id=<?php echo $tar['id_actividad']; ?>&grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>">
                                 <?php echo htmlspecialchars($tar['nombre']); ?>
                             </a>
                         </h3>
@@ -130,7 +130,7 @@
                 while ($act = mysqli_fetch_assoc($res_activ)): ?>
                     <article class="tareas">
                         <h3>
-                            <a href="detalle_actividad.php?id=<?php echo $act['id_actividad']; ?>&grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>">
+                            <a href="tarea1.php?id=<?php echo $act['id_actividad']; ?>&grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>">
                                 <?php echo htmlspecialchars($act['nombre']); ?>
                             </a>
                         </h3>
