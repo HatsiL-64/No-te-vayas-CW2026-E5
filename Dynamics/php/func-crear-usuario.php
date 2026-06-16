@@ -45,6 +45,19 @@ function registra_alumno($conexion){
   mysqli_query($conexion, $sql);
   $sql = "INSERT INTO alumnos( id_alumno, id_usuario, id_grupo1, desercion) VALUES( ". $identificador . ", " . $id_usuario . ", '" . $plantel . $grupo . "', '0');";
   mysqli_query($conexion, $sql);
+  $sql2 = "SELECT modulos.id_modulo FROM grupos INNER JOIN modulos ON grupos.id_ete = modulos.id_ete WHERE id_grupo = '$plantel$grupo'";
+  $resultado_modulos = mysqli_query($conexion, $sql2);
+  if (mysqli_num_rows($resultado_modulos) > 0) 
+  {
+    while ($fila = mysqli_fetch_assoc($resultado_modulos)) {
+        $lista_modulos[] = $fila['id_modulo'];
+    }
+    foreach ($lista_modulos as $id_modulo) {
+        $sql_asistencia = "INSERT INTO asistencia_$plantel$grupo (id_alumno, id_modulo, d_asistidos, d_totales) 
+            VALUES ($identificador, '$id_modulo', 0, 0)";
+        mysqli_query($conexion, $sql_asistencia) or die("Error al insertar asistencia del módulo $id_modulo: " . mysqli_error($conexion));
+    }
+  }
   return 0;
 }
 
