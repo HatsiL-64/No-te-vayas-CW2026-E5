@@ -1,14 +1,24 @@
 <?php
+session_start();
 include 'layout.php';
+include 'validaciones.php';
+if(!isset($_SESSION["usuario"])){
+    header("inicio.php");
+    exit();
+}
 if (isset($_GET['grupo']))
-    {
-        $id_grupo = $_GET['grupo'];
-    }
+{
+    $grupo_get = $_GET["grupo"];
+    $id_grupo = deshacer_secuencia(desencriptar($grupo_get, $_SESSION["llave"]));
+}
 if (isset($_GET['modulo']))
-    {    
-        $id_modulo = $_GET['modulo'];
-    }
-else { $id_modulo = 'CM1';}
+{    
+    $id_modulo = $_GET['modulo'];
+}
+else 
+{
+    header("Location: inicio.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">

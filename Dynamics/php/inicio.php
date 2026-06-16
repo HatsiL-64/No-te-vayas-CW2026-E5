@@ -1,10 +1,11 @@
 <?php
     session_start();
-    if (!isset($_SESSION) || !isset($_COOKIE)) {
+    if (!isset($_SESSION["tipo_usuario"]) || !isset($_COOKIE)) {
         header("Location: ../../login.html");
     }
     include 'layout.php';
     include 'config.php';
+    include 'validaciones.php';
     $id_usuario = $_SESSION['usuario'];
     $tipo_usuario = $_SESSION['tipo_usuario'];
 ?>
@@ -38,9 +39,11 @@
 
                             $alumno = mysqli_fetch_assoc($resultado);
                             if ($alumno){
+
+                                $id_grupo1_encriptado = encriptar(crear_secuencia($alumno['id_grupo1']), $_SESSION['llave']); 
                                 echo "<div class = 'tarjeta'>";
                                 echo "<h3> Grupo:";
-                                echo "<a class='pag' href='./modulos.php?grupo=" . $alumno['id_grupo1'] . "'>" . $alumno['id_grupo1'] . "</a>";
+                                echo "<a class='pag' href='./modulos.php?grupo=" . $id_grupo1_encriptado . "'>" . $alumno['id_grupo1'] . "</a>";
                                 echo"</h3>";
                                 echo "<p>";
                                 echo $alumno['nombre'];
@@ -48,9 +51,10 @@
                                 echo"</div>";
 
                                 if ($alumno['id_grupo2'] != NULL){
+                                    $id_grupo2_encriptado = encriptar(crear_secuencia($alumno['id_grupo2']), $_SESSION['llave']);                                 
                                     echo "<div class='tarjeta'>";
                                     echo "<h3> Grupo:";
-                                    echo "<a class='pag' href='./modulos.php?grupo=" . $alumno['id_grupo2'] . "'>" . $alumno['id_grupo2'] . "</a>";
+                                    echo "<a class='pag' href='./modulos.php?grupo=" . $id_grupo2_encriptado . "'>" . $alumno['id_grupo2'] . "</a>";
                                     echo"</h3>";
                                     echo "<p>";
 
@@ -131,10 +135,11 @@
                 echo "<a href=\"./crear-grupo.php\">Crear grupo</a>";
                 echo "<div id=\"mis_grupos\">";
                 while ($grupo = mysqli_fetch_assoc($query)){
-                    $nombre_grupo = substr($grupo['id_grupo'], 1); 
+                    $nombre_grupo = substr($grupo['id_grupo'], 1);
+                    $id_grupo_encriptado = encriptar(crear_secuencia($grupo['id_grupo']), $_SESSION['llave']); 
                     echo "<div class='tarjeta'>";
                     echo "<h3>";
-                    echo $nombre_grupo;
+                    echo "<a href='modulos.php?grupo=" . $id_grupo_encriptado . "'>" . $nombre_grupo . "</a>";
                     echo "</h3>";
 
                     echo "<p>";
