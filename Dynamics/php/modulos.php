@@ -2,11 +2,9 @@
     include 'layout.php';
     include 'config.php';
     session_start();
-    $id_grupo = '61B';
     if (isset($_GET['grupo']))
     {
         $id_grupo = $_GET['grupo'];
-        $id_grupo = '61B';
         $sql1 = "SELECT id_ete FROM grupos WHERE id_grupo = '$id_grupo'";
         $resultado = mysqli_query($conexion, $sql1);
         $fila= mysqli_fetch_assoc($resultado);
