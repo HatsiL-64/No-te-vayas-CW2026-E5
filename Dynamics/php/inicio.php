@@ -1,10 +1,15 @@
 <?php
     session_start();
-    if (!isset($_SESSION) || !isset($_COOKIE)) {
-        header("Location: ../../login.html");
-    }
     include 'layout.php';
     include 'config.php';
+    include 'validaciones.php';
+    include 'procesar_cookies.php';
+    if (!isset($_SESSION["tipo_usuario"])) {
+        if(isset($_COOKIE["usuario"]))
+            procesar_cookies();        
+        else 
+            header("Location: ../../login.html");
+    }
     $id_usuario = $_SESSION['usuario'];
     $tipo_usuario = $_SESSION['tipo_usuario'];
 ?>
@@ -38,9 +43,11 @@
 
                             $alumno = mysqli_fetch_assoc($resultado);
                             if ($alumno){
+
+                                $id_grupo1_encriptado = encriptar(crear_secuencia($alumno['id_grupo1']), $_SESSION['llave']); 
                                 echo "<div class = 'tarjeta'>";
                                 echo "<h3> Grupo:";
-                                echo "<a class='pag' href='./modulos.php?grupo=" . $alumno['id_grupo1'] . "'>" . $alumno['id_grupo1'] . "</a>";
+                                echo "<a class='pag' href='./modulos.php?grupo=" . $id_grupo1_encriptado . "'>" . $alumno['id_grupo1'] . "</a>";
                                 echo"</h3>";
                                 echo "<p>";
                                 echo $alumno['nombre'];
@@ -48,11 +55,17 @@
                                 echo"</div>";
 
                                 if ($alumno['id_grupo2'] != NULL){
+                                    $id_grupo2_encriptado = encriptar(crear_secuencia($alumno['id_grupo2']), $_SESSION['llave']);                                 
                                     echo "<div class='tarjeta'>";
                                     echo "<h3> Grupo:";
-                                    echo "<a class='pag' href='./modulos.php?grupo=" . $alumno['id_grupo2'] . "'>" . $alumno['id_grupo2'] . "</a>";
+                                    echo "<a class='pag' href='./modulos.php?grupo=" . $id_grupo2_encriptado . "'>" . $alumno['id_grupo2'] . "</a>";
                                     echo"</h3>";
                                     echo "<p>";
+
+                                    $sql = "SELECT ete.nombre FROM grupos INNER JOIN ete ON grupos.id_ete = ete.id_ete WHERE id_grupo = '". $alumno["id_grupo2"] ."';";
+                                    $resultado = mysqli_query($conexion, $sql);
+                                    $alumno = mysqli_fetch_assoc($resultado);
+                                    
                                     echo $alumno['nombre'];
                                     echo "</p>";
                                     echo"</div>";
@@ -121,15 +134,16 @@
                 $sql = "SELECT grupos.id_grupo, ete.nombre FROM grupos INNER JOIN ete On grupos.id_ete = ete.id_ete;";
                 $query = mysqli_query($conexion, $sql);
                 //Vista
-                echo "<a href=\"./crear-usuario.php\">Crear usuario</a>";
+                echo "<div class= 'contenedor-boton'><a class='btn-enviar' href=\"./crear-usuario.php\">Crear usuario</a></div>";
                 echo "<br>";
-                echo "<a href=\"./crear-grupo.php\">Crear grupo</a>";
+                echo "<div class= 'contenedor-boton'><a class='btn-enviar' href=\"./crear-grupo.php\">Crear grupo</a></div>";
                 echo "<div id=\"mis_grupos\">";
                 while ($grupo = mysqli_fetch_assoc($query)){
-                    $nombre_grupo = substr($grupo['id_grupo'], 1); 
+                    $nombre_grupo = substr($grupo['id_grupo'], 1);
+                    $id_grupo_encriptado = encriptar(crear_secuencia($grupo['id_grupo']), $_SESSION['llave']); 
                     echo "<div class='tarjeta'>";
                     echo "<h3>";
-                    echo $nombre_grupo;
+                    echo "<a href='modulos.php?grupo=" . $id_grupo_encriptado . "'>" . $nombre_grupo . "</a>";
                     echo "</h3>";
 
                     echo "<p>";

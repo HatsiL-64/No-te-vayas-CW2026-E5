@@ -1,5 +1,12 @@
 <?php
 session_start();
+include 'procesar_cookies.php';
+if (!isset($_SESSION["tipo_usuario"])) {
+  if(isset($_COOKIE["usuario"]))
+    procesar_cookies();        
+  else 
+    header("Location: ../../login.html");
+}
 if ($_SESSION["tipo_usuario"] != 3) {
   header("Location: inicio.php");
   exit();
@@ -37,7 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
           <p>Tipo de usuario:</p>
           <input type="radio" name="tipo_usuario" value="alumno" required><label>Alumno</label>
           <input type="radio" name="tipo_usuario" value="profesor" required><label>Profesor</label>
-          <br><input type="submit" value="tipo_usuario">
+        </div>
+        <div class="contenedor-boton">
+          <input class="btn-enviar" type="submit" value="tipo_usuario">
         </div>
       </form>
     </div>

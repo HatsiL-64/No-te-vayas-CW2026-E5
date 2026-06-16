@@ -1,6 +1,14 @@
 <?php
 session_start();
 include 'codigo_errores.php';
+include 'procesar_cookies.php';
+if (!isset($_SESSION["tipo_usuario"])) {
+  if(isset($_COOKIE["usuario"]))
+    procesar_cookies();        
+  else 
+    header("Location: ../../login.html");
+}
+
 if ($_SESSION["tipo_usuario"] != 3) {
   header("Location: inicio.php");
   exit();
@@ -59,8 +67,8 @@ if ($_SESSION["tipo_usuario"] != 3) {
         </div>
         <div class="pregunta_formulario">
           <label>Correo del profesor<input type="text" name="correo" placeholder="" required></label>
-        </div>
-        <input type="submit" value="Registrar profesor">
+        </div class="contenedor-boton">
+        <input class="btn-enviar" type="submit" value="Registrar profesor">
       </form>
     </div>
   </main>

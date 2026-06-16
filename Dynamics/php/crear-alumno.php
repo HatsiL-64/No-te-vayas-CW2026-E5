@@ -1,7 +1,15 @@
 <?php
 session_start();
 include 'codigo_errores.php';
-if (!isset($_SESSION["usuario"]) || $_SESSION["tipo_usuario"] == 1) {
+include 'procesar_cookies.php';
+if (!isset($_SESSION["tipo_usuario"])) {
+  if(isset($_COOKIE["usuario"]))
+    procesar_cookies();        
+  else 
+    header("Location: ../../login.html");
+}
+
+if($_SESSION["tipo_usuario"] == 1) {
   header("Location: inicio.php");
   exit();
 }
@@ -64,7 +72,9 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["tipo_usuario"] == 1) {
         <div class="pregunta_formulario">
           <label>Plantel: <input type="text" name="plantel" required></label>
         </div>
-        <input type="submit" value="Registrar alumno">
+        <div class= "contenedor-boton">
+        <input class="btn-enviar" type="submit" value="Registrar alumno">
+        </div>
       </form>
     </div>
   </main>

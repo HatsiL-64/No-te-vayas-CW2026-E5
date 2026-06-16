@@ -1,21 +1,25 @@
 <?php
+    session_start();
     include 'layout.php';
     include 'config.php';
-    session_start();
-    $id_grupo = '61B';
+    include 'validaciones.php';
+    include 'procesar_cookies.php';
+    if (!isset($_SESSION["tipo_usuario"])) {
+        if(isset($_COOKIE["usuario"]))
+            procesar_cookies();        
+        else 
+            header("Location: ../../login.html");
+    }
     if (isset($_GET['grupo']))
     {
-        $id_grupo = $_GET['grupo'];
-        $id_grupo = '61B';
+        $usuario = $_SESSION['usuario'];
+        $tipo_usuario = $_SESSION['tipo_usuario'];
+        $grupo_get = $_GET['grupo'];
+        $id_grupo = deshacer_secuencia(desencriptar($grupo_get, $_SESSION["llave"]));
         $sql1 = "SELECT id_ete FROM grupos WHERE id_grupo = '$id_grupo'";
         $resultado = mysqli_query($conexion, $sql1);
         $fila= mysqli_fetch_assoc($resultado);
         $id_ete = $fila['id_ete'];
-        $usuario = $_SESSION['usuario'];
-        $sql2 = "SELECT tipo_usuario FROM usuarios WHERE id_usuario = '$usuario'";
-        $resultado = mysqli_query($conexion, $sql2);
-        $fila = mysqli_fetch_assoc($resultado);
-        $tipo_usuario = $fila['tipo_usuario'];
 
 ?>
 <!DOCTYPE html>
@@ -43,48 +47,27 @@
         ?>
         </div>
         <section class="contenedor_modulos">
-            <article class="modulos_impar">
-                <h3>
-                    <a href="dentro-modulos.php">Módulo 1 </a>
-                </h3>
-                <p>Introducción a la computación</p>
-            </article>
-            <article class="modulos_par">
-                <h3>Módulo 2</h3>
-                <p>Sistemas operativos</p>
-            </article>
-            <article class="modulos_impar">
-                <h3>Módulo 3</h3>
-                <p>Aplicación de uso general</p>
-            </article>
-            <article class="modulos_par">
-                <h3>Módulo 4</h3>
-                <p>Solución de problemas y técnicas de programación</p>
-            </article>
-            <article class="modulos_impar">
-                <h3>Módulo 5</h3>
-                <p>Promagación estructuradaL</p>
-            </article>
-            <article class="modulos_par">
-                <h3>Módulo 6</h3>
-                <p>Programación orientada a eventos</p>
-            </article>
-            <article class="modulos_impar">
-                <h3>Módulo 7</h3>
-                <p>Análisis y diseño de sistemas</p>
-            </article>
-            <article class="modulos_par">
-                <h3>Módulo 8</h3>
-                <p>Programación orientada a base de datos</p>
-            </article>
-            <article class="modulos_impar">
-                <h3>Módulo 9</h3>
-                <p>Redes de área local</p>
-            </article>
-            <article class="modulos_par">
-                <h3>Módulo 10</h3>
-                <p>Mantenimiento preventivo y correctivo menor para computadoras personales</p>
-            </article>
+            <?php
+                $sql = "SELECT id_modulo, numero, nombre FROM modulos WHERE id_ete = '" . $id_ete . "';";
+                $query = mysqli_query($conexion, $sql);
+                $i = 1;
+                while (($registro = mysqli_fetch_assoc($query))) {
+                    if($i % 2 == 0){
+                        echo "<article class='modulos_par'"; 
+                    }else{
+                        echo "<article class='modulos_impar'"; 
+                    }
+                    //esto lo vi en la documentacion de php, esta increible
+                    echo <<<EOH
+                            <h3>
+                                <a href='dentro-modulos.php?grupo={$grupo_get}&modulo={$registro['numero']}'>Módulo {$registro['numero']} </a>
+                            </h3>
+                            <p>{$registro["nombre"]}</p>
+                        </article>    
+                    EOH;
+                    $i++;
+                }
+            ?>    
         </section>
     </main>                
 </body>

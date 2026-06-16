@@ -1,5 +1,27 @@
 <?php
+session_start();
 include 'layout.php';
+include 'validaciones.php';
+include 'procesar_cookies.php';
+if (!isset($_SESSION["tipo_usuario"])) {
+    if(isset($_COOKIE["usuario"]))
+        procesar_cookies();        
+    else 
+        header("Location: ../../login.html");
+}
+if (isset($_GET['grupo']))
+{
+    $grupo_get = $_GET["grupo"];
+    $id_grupo = deshacer_secuencia(desencriptar($grupo_get, $_SESSION["llave"]));
+}
+if (isset($_GET['modulo']))
+{    
+    $id_modulo = $_GET['modulo'];
+}
+else 
+{
+    header("Location: inicio.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,17 +37,17 @@ include 'layout.php';
         <section class="contenedor-modulos">
             <article class="cuadro">
                 <h3>
-                <a href="recursos.php">Recursos</a>
+                <a href="recursos.php?grupo=<?php echo $id_grupo?>&modulo=<?php echo $id_modulo?>">Recursos</a>
                 </h3>
             </article>
             <article class="cuadro">
                 <h3>
-                    <a href="tareas.php">Actividades/tareas</a>
+                    <a href="tareas.php?grupo=<?php echo $id_grupo?>&modulo=<?php echo $id_modulo?>">Actividades/tareas</a>
                 </h3>
             </article>
             <article class="cuadro">
                 <h3>
-                    <a href="asistencia.php">Asistencia</a>
+                    <a href="asistencia.php?grupo=<?php echo $id_grupo?>&modulo=<?php echo $id_modulo?>">Asistencia</a>
                 </h3>
             </article>
         </section>
