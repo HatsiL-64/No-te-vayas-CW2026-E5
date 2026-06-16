@@ -134,9 +134,9 @@
                 $sql = "SELECT grupos.id_grupo, ete.nombre FROM grupos INNER JOIN ete On grupos.id_ete = ete.id_ete;";
                 $query = mysqli_query($conexion, $sql);
                 //Vista
-                echo "<a href=\"./crear-usuario.php\">Crear usuario</a>";
+                echo "<div class= 'contenedor-boton'><a class='btn-enviar' href=\"./crear-usuario.php\">Crear usuario</a></div>";
                 echo "<br>";
-                echo "<a href=\"./crear-grupo.php\">Crear grupo</a>";
+                echo "<div class= 'contenedor-boton'><a class='btn-enviar' href=\"./crear-grupo.php\">Crear grupo</a></div>";
                 echo "<div id=\"mis_grupos\">";
                 while ($grupo = mysqli_fetch_assoc($query)){
                     $nombre_grupo = substr($grupo['id_grupo'], 1);
