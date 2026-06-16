@@ -36,9 +36,11 @@
                 <div id="mis_grupos">
                     <?php
                         if ($tipo_usuario == 1){
+                            // correccion: habia un espacio dentro de las comillas de $id_usuario que
+                            // impedia que la consulta encontrara al alumno
                             $sql ="SELECT id_grupo1, id_grupo2, ete.nombre FROM alumnos INNER JOIN grupos
-                                    On alumnos.id_grupo1 = grupos.id_grupo INNER JOIN ete 
-                                    On grupos.id_ete = ete.id_ete WHERE alumnos.id_usuario = '$id_usuario '";
+                                    On alumnos.id_grupo1 = grupos.id_grupo INNER JOIN ete
+                                    On grupos.id_ete = ete.id_ete WHERE alumnos.id_usuario = '$id_usuario'";
                             $resultado = mysqli_query($conexion, $sql);
 
                             $alumno = mysqli_fetch_assoc($resultado);
@@ -93,9 +95,12 @@
                                     if ($resultado_revisar) {
                                         $fila_revisar = mysqli_fetch_assoc($resultado_revisar);
                                         if ($fila_revisar['total'] > 0) {
+                                            // correccion: el link del grupo se mandaba sin encriptar pero
+                                            // modulos.php siempre intenta desencriptarlo, produciendo un id basura
+                                            $id_grupo_encriptado = encriptar(crear_secuencia($id_grupo_actual), $_SESSION['llave']);
                                             echo "<div class='tarjeta'>";
                                             echo "<h3>";
-                                            echo "<a class='pag' href='modulos.php?grupo=" . $id_grupo_actual . "'>" . $id_grupo_actual . "</a>";
+                                            echo "<a class='pag' href='modulos.php?grupo=" . $id_grupo_encriptado . "'>" . $id_grupo_actual . "</a>";
                                             echo "</h3>";
                                             echo "<p>" . $grupo['nombre'] . "</p>";
                                             echo "</div>";

@@ -24,7 +24,8 @@
         $resultado2 = mysqli_query($conexion, $sql2);
         $fila2 = mysqli_fetch_assoc($resultado2);
         $id_ete = $fila2['id_ete'];
-        if($id_ete == 'CM1' || $id_ete = 'CM2' || $id_ete == 1)
+        // correccion: el segundo operando usaba asignacion (=) en lugar de comparacion (==)
+        if($id_ete == 'CM1' || $id_ete == 'CM2' || $id_ete == 1)
         {
             //Calcula riesgo, donde 1 es malo
             $r_habitos    = (3 - $promedio_he) / 2;
@@ -42,11 +43,12 @@
                 ($r_calificacion * 0.25);    // 25% Calificaciones
         }
         else{
-            $riesgo_final_decimal = ($r_asistencia * 0.50) + ($r_calificacion * 0.50);
+            // correccion: la variable se llamaba $riesgo_final_decimal pero abajo se leia $riesgo_decimal
+            $riesgo_decimal = ($r_asistencia * 0.50) + ($r_calificacion * 0.50);
         }
         $porcentaje_riesgo = round($riesgo_decimal * 100);
 
         return $porcentaje_riesgo;
     }
-    echo calc_riesgo($conexion, 131313, '61D');
+    // linea de prueba eliminada: echo calc_riesgo($conexion, 131313, '61D');
 ?>

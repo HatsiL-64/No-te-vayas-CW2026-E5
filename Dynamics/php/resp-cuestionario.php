@@ -1,4 +1,6 @@
 <?php
+    // correccion: session_start() faltaba, dejando la pagina sin verificacion de autenticacion
+    session_start();
     include 'layout.php';
     include 'estadisticas.php';
     include_once 'config.php';
@@ -66,7 +68,8 @@
             }
         }
         else{
-            $sql3 = "INSERT cuestionario(id_alumno, id_grupo, ea, he_1, he_2, he_3, he_4, he_5, he_6, he_7, he_8, he_9, he_10, he_11, t_1, t_2, t_3, t_4, t_5, t_6, aa_1, aa_2, ec_1, mye_1, mye_2, mye_3, mye_4, comentario, ec_2)
+            // correccion: faltaba INTO en la sentencia INSERT, causando error de sintaxis SQL en el primer registro
+            $sql3 = "INSERT INTO cuestionario(id_alumno, id_grupo, ea, he_1, he_2, he_3, he_4, he_5, he_6, he_7, he_8, he_9, he_10, he_11, t_1, t_2, t_3, t_4, t_5, t_6, aa_1, aa_2, ec_1, mye_1, mye_2, mye_3, mye_4, comentario, ec_2)
                     VALUES($id_alumno, '$id_grupo', '$ea', $he_1, $he_2, $he_3, $he_4, $he_5, $he_6, $he_7, $he_8, $he_9, $he_10, $he_11, $t_1, $t_2, $t_3, $t_4, $t_5, $t_6, $aa_1, $aa_2, $ec_1, $mye_1, $mye_2, $mye_3, $mye_4, '$comentario', $ec_2)";
             $ejecutar = mysqli_query($conexion, $sql3);
             if($ejecutar)

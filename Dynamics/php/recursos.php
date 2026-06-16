@@ -1,7 +1,8 @@
 <?php
+    // correccion: session_start() debe ir antes de cualquier output HTML
+    session_start();
     include 'layout.php';
     include 'config.php';
-    session_start();
     
     $usuario = $_SESSION['usuario'];
     $sql1 = "SELECT tipo_usuario FROM usuarios WHERE id_usuario = '$usuario'";

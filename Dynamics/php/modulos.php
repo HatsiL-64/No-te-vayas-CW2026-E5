@@ -40,7 +40,9 @@
             </a>
         </div>
         <?php
-            if($id_ete == 'CM1' || $id_ete == 'CM2' || $id_ete == 1 && $tipo_usuario == 1)
+            // correccion: && tiene mayor precedencia que ||, el link aparecia para profesores y admin
+            // en grupos CM1/CM2. Se agregan parentesis para que tipo_usuario se evalúe en todos los casos
+            if(($id_ete == 'CM1' || $id_ete == 'CM2' || $id_ete == 1) && $tipo_usuario == 1)
             {
                 echo "<a class='pag' href = 'cuestionario.php'> Cuestionario </a>";
             }
@@ -52,10 +54,11 @@
                 $query = mysqli_query($conexion, $sql);
                 $i = 1;
                 while (($registro = mysqli_fetch_assoc($query))) {
+                    // correccion: faltaba el '>' de cierre en la etiqueta <article>, el HTML resultaba invalido
                     if($i % 2 == 0){
-                        echo "<article class='modulos_par'"; 
+                        echo "<article class='modulos_par'>";
                     }else{
-                        echo "<article class='modulos_impar'"; 
+                        echo "<article class='modulos_impar'>";
                     }
                     //esto lo vi en la documentacion de php, esta increible
                     echo <<<EOH

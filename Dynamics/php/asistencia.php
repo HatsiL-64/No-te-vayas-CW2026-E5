@@ -1,7 +1,10 @@
 <?php
     session_start(); //Iniciamos la sesión para acceder a las variables de la misma sesión 
-    if (!isset($_SESSION) || !isset($_COOKIE)) { //Validamos que la sesion 
+    // correccion: $_SESSION y $_COOKIE son superglobales, siempre estan definidos despues
+    // de session_start(), por lo que la condicion nunca era verdadera. Se verifica el dato concreto
+    if (!isset($_SESSION['usuario'])) {
         header("Location: ../../login.html");
+        exit();
     }
 
     // -- PASO DE INFORMACIÓN ENTRE PÁGINAS

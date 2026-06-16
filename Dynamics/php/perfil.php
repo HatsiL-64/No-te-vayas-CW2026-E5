@@ -181,8 +181,10 @@ $alumno = mysqli_fetch_assoc($resultado_query);
                 <h3> - Calificaciones <?php echo $alumno['id_grupo1'] . ": " . $promedio_caif_g1?> </h3>
                 <?php
                     if ($alumno['id_grupo2'] != NULL){
-                        echo "<h3>- Asistencias " . $alumno['id_grupo2'] . ": " . $promedio_asis_g1;
-                        echo "<h3>- Calificaciones" . $alumno['id_grupo2'] . ": " . $promedio_caif_g2;
+                        // correccion: se usaba $promedio_asis_g1 (grupo 1) en lugar de $promedio_asis_g2 (grupo 2)
+                        // correccion: faltaban las etiquetas de cierre </h3>
+                        echo "<h3>- Asistencias " . $alumno['id_grupo2'] . ": " . $promedio_asis_g2 . " %</h3>";
+                        echo "<h3>- Calificaciones " . $alumno['id_grupo2'] . ": " . $promedio_caif_g2 . "</h3>";
                     }
                 ?>
             </div>

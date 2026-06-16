@@ -1,7 +1,8 @@
 <?php
-include 'config.php';
-include 'layout.php';
-session_start();
+    // correccion: session_start() debe ir antes de cualquier output HTML
+    session_start();
+    include 'config.php';
+    include 'layout.php';
 
 $lista_alumnos = array();
 if (isset($_GET['grupo'])){

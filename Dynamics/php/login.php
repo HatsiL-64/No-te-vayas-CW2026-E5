@@ -39,8 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"])) {
     //setcookie("usuario", $registro["id_usuario"], time() + 604800); // 3600 * 24 * 7 Una semana
     
     header("Location: inicio.php");
+    // correccion: sin exit() el codigo seguia ejecutandose despues del redirect
+    exit();
   } else {
     $error = "Usuario no encontrado";
     header("Location: ../../login.html");
+    exit();
   }
 }
