@@ -2,8 +2,17 @@
 Proyecto final del equipo 5 del curso web 2026  
 
 ## Indice
-[TOC]
-
+1. [Resumen](#resumen)
+2. [Levantamiento de requerimentos](#levantamiento-de-requerimentos) 
+	- [Bases](#bases-del-proyecto)
+	- [Metas y objetivos](#metas-y-objetivos)
+	- [Público objetivo](#público-objetivo-ux)
+	- [Propósito y alcanse](#propósito-y-alcance)
+	- [Especificaiones funcionales](#especificaciones-funcionales)
+	- [Requisitos no funcionales](#requisitos-no-funcionales)
+	- [Arquitectura de la informacion y UX](#arquitectura-de-la-información-y-ux)
+	- [Especificaciones tecnicas](#especificaciones-técnicas)
+3. [Guía de instalación](#guía-de-instalación)	
 ## Resumen
 
 No te vayas, QuedETE, es un sistema de acceso restringido con el propósito de disminuir la deserción del ETE en especial del ETE en computación . El sistema facilita al profesor dar seguimiento y orientación a los alumnos, así como la creación de distintas estrategias personalizadas a partir del perfil de los mismos y a los alumnos les brinda espacios en los que el profesor puede subir recursos para reforzar sus conocimientos.
@@ -71,9 +80,7 @@ Cuestionario Diagnóstico. | Cuestionario dirigido a los estudiantes del ETE en 
 |CATEGORÍA    |REQUISITO|
 |-------------|---------|
 |Accesibilidad|Navegable desde cualquier dispositivo.|
-|Privacidad   |Evitar que los estudiantes accedan a información que no les pertenezca y evitar que el profesorado acceda a información de alumnos que no le pertenezca. 
-
-
+|Privacidad   |Evitar que los estudiantes accedan a información que no les pertenezca y evitar que el profesorado acceda a información de alumnos que no le pertenezca.| 
 
 
 #### ARQUITECTURA DE LA INFORMACIÓN Y UX
@@ -90,7 +97,21 @@ CSS
 - **Backend:**  PHP
 - **Base de Datos:**  MaríaDB (base de datos)
 
-## Guía de Instalación
+## CONVENCIONES
+- Todo en español 
+
+- No espacios, ni acentos, ni caracteres especiales para nombres
+
+- Para ramas,  repertorios, y nombres de archivos: minúsculas y guión medio
+
+- id y class: minúsculas y guión bajo
+
+- commits: type(scope): descripción en infinitivo
+
+- Descripción general de la función en la firma de la misma y comentarios de apoyo en puntos importantes.
+
+
+## GUÍA DE INSTALACIÓN 
 **Requisitos previos**:
 
 - Tener XAMPP instalado (en caso de tener un sistema operativo basado en Linux, se puede instalar y configurar Apache directamente)
