@@ -1,19 +1,21 @@
 <?php
-include 'conexion.php';
+include_once 'config.php';
 
 // -- PRUEBA CON DATOS SIMULADOS
 /*$id_grupo = '61B';
 $id_alumno = '101010';
 $id_modulo = 'Programación estructurada';*/
 
-    function asistencias_alumno($conexion, $id_alumno, $id_modulo)
+    function asistencias_alumno2($conexion, $id_alumno, $id_grupo)
     {
-        $sql = "SELECT asistencia.id_alumno, asistencia.d_asistidos, asistencia.d_total FROM asistencia WHERE asistencia.id_alumno = '$id_alumno' AND id_modulo = '$id_modulo'";
+        $sql = "SELECT asistencia_$id_grupo.id_alumno, asistencia_$id_grupo.d_asistidos, asistencia_$id_grupo.d_totales FROM asistencia_$id_grupo WHERE asistencia_$id_grupo.id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
-
+        if ($resultado_query === false) {
+            return 0; 
+        }
         if ($registro = mysqli_fetch_assoc($resultado_query)){
             $asistidos =  $registro["d_asistidos"];
-            $total = $registro["d_total"];
+            $total = $registro["d_totales"];
             if ($total > 0) {
                 $promedio_alumno = ($asistidos / $total)*100;
                 return $promedio_alumno;
@@ -21,32 +23,53 @@ $id_modulo = 'Programación estructurada';*/
         }
         return 0;
     }
-    //echo "El promedio de asistencia por alumno es: " . asistencias_alumno($conexion, $id_alumno, $id_modulo); echo "<p>";
+    function asistencias_alumno($conexion, $id_alumno, $id_grupo, $id_modulo)
+    {
+        $sql = "SELECT asistencia_$id_grupo.id_alumno, asistencia_$id_grupo.d_asistidos, asistencia_$id_grupo.d_totales FROM asistencia_$id_grupo WHERE asistencia_$id_grupo.id_alumno = '$id_alumno' AND id_modulo = '$id_modulo'";
+        $resultado_query = mysqli_query($conexion, $sql);
+        if ($resultado_query === false) {
+            return 0; 
+        }
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
+            $asistidos =  $registro["d_asistidos"];
+            $total = $registro["d_totales"];
+            if ($total > 0) {
+                $promedio_alumno = ($asistidos / $total)*100;
+                return $promedio_alumno;
+            }
+        }
+        return 0;
+    }
+    //echo "El promedio de asistencia por alumno es: " . asistencias_alumno($conexion, $id_alumno, $id_grupo); echo "<p>";
 
     function asistencias_grupal($conexion, $id_grupo, $id_modulo)
     {
-        $sql = "SELECT asistencia.id_grupo, asistencia.d_total, AVG(asistencia.d_asistidos) FROM asistencia WHERE id_grupo = '$id_grupo' AND id_modulo = '$id_modulo'";
+        $sql = "SELECT asistencia_$id_grupo.d_totales, AVG(asistencia_$id_grupo.d_asistidos) FROM asistencia_$id_grupo WHERE id_modulo = '$id_modulo'";
         $resultado_query = mysqli_query($conexion, $sql);
-
-        if ($registro = mysqli_fetch_assoc($resultado_query));{
-            $asistidos =  $registro["AVG(asistencia.d_asistidos)"];
-            $total = $registro["d_total"];
+        if ($resultado_query === false) {
+            return 0; 
+        }
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
+            $asistidos =  $registro["AVG(asistencia_$id_grupo.d_asistidos)"];
+            $total = $registro["d_totales"];
             $promedio_grupo = ($asistidos / $total)*100;
             return $promedio_grupo;
         }
         return 0;
     }
-    //echo "El promedio de asistencia  por modulo es: " . asistencias_grupal($conexion, $id_grupo, $id_modulo); echo "<p>";
+    //echo "El promedio de asistencia es: " . asistencias_grupal($conexion, $id_grupo); echo "<p>";
 
-
-    function calificaciones_alumnos($conexion, $id_alumno)
+    function calificaciones_alumnos($conexion, $id_alumno, $id_grupo)
     {
         $suma_calificaciones = 0;
         $total_calificaciones = 0;
         $caliicacion_maxima = 10;
 
-        $sql = "SELECT calificacion FROM calificaciones WHERE id_alumno = '$id_alumno'";
+        $sql = "SELECT calificacion FROM calificaciones_$id_grupo WHERE id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
+        if ($resultado_query === false) {
+            return 0; 
+        }
 
         if ($resultado_query){
             while ($fila = mysqli_fetch_assoc($resultado_query)){
@@ -61,14 +84,17 @@ $id_modulo = 'Programación estructurada';*/
         }
         
     }
-    //echo "El promedio de tus calificaciones es: " . calificaciones_alumnos($conexion, $id_alumno); echo "<p>";
+    //echo "El promedio de tus calificaciones es: " . calificaciones_alumnos($conexion, $id_alumno, $id_grupo); echo "<p>";
     
     function calificaciones_grupo ($conexion, $id_grupo)
     {
-        $sql = "SELECT SUM(calificacion), COUNT(calificacion) FROM calificaciones WHERE id_grupo = '$id_grupo'";
+        $sql = "SELECT SUM(calificacion), COUNT(calificacion) FROM calificaciones_$id_grupo";
         $resultado_query = mysqli_query($conexion, $sql);
+        if ($resultado_query === false) {
+            return 0; 
+        }
         
-        if ($registro = mysqli_fetch_assoc($resultado_query));{
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
             $suma_calificaciones =  $registro["SUM(calificacion)"];
             $total = $registro["COUNT(calificacion)"];
             $calificacion_grupo = ($suma_calificaciones / $total);
