@@ -1,61 +1,66 @@
-h2{
-    text-align: center;
-}
-h3{
-    text-align: center;
-}
-.cuadro_re{
-    height: 100px;
-    width: 600px;
-    background-color: rgb(96, 96, 167);
-
-}
-.recursos{
+main {
+    position: relative; 
+    display: block;
     margin-top: 120px;
-}
-#archivos{
-    background-color:  rgb(173, 173, 174);
-    height: 400px;
-    width: 900px;
-    margin: auto;
-}
-#ejercicios{
-    background-color:  rgb(173, 173, 174);
-    height: 400px;
-    width: 900px;
-    margin: auto;
-}
-#enlaces{
-    background-color:  rgb(173, 173, 174);
-    height: 400px;
-    width: 900px;
-    margin: auto;
-}
-#scripts{
-    background-color:  rgb(173, 173, 174);
-    height: 400px;
-    width: 900px;
-    margin: auto;
+    margin-left: 18vw;
+    padding: 1px; 
+    width: calc(100% - 18vw); 
+    box-sizing: border-box;
 }
 
-#cuadro_arch{
-    height: 300px;
-    width: 800px;
-    background-color: #EBE19B;
+h2 {
+    margin-bottom: 40px;
+    text-align: center;
+    color: rgb(253, 197, 0);
+    padding: 10px;
+    background-color: rgb(0, 41, 107);
+    width: 78vw;
+    margin-left: auto;  
+    margin-right: auto;
+    box-sizing: border-box;
 }
 
-#cuadro_ejer{
-    height: 300px;
-    width: 800px;
-    background-color: #EBE19B;
+h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px; 
 }
-#cuadro_enl{
-    height: 300px;
-    width: 800px;
-    background-color: #EBE19B;
+
+
+#archivos, #ejercicios, #enlaces, #scripts {
+    background-color: rgb(173, 173, 174);
+    width: 78vw;
+    margin: 40px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
 }
-#cuadro_script{
-    height: 300px;
-    width: 800px;
+
+
+#cuadro_arch, #cuadro_ejer, #cuadro_enl, #cuadro_script {
+    width: 68vw;
+    gap: 20px; 
     background-color: #EBE19B;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;     
+}
+
+
+.cuadro_re {
+    width: 58vw;
+    background-color: #8D9BB2;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.recursos {
+    margin-top: 120px;
 }
