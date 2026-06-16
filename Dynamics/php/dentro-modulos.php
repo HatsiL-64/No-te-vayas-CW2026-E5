@@ -11,8 +11,8 @@ if (!isset($_SESSION["tipo_usuario"])) {
 }
 if (isset($_GET['grupo']))
 {
-    $grupo_get = $_GET["grupo"];
-    $id_grupo = deshacer_secuencia(desencriptar($grupo_get, $_SESSION["llave"]));
+    $id_grupo = $_GET["grupo"];
+    //$id_grupo = deshacer_secuencia(desencriptar($grupo_get, $_SESSION["llave"]));
 }
 if (isset($_GET['modulo']))
 {    

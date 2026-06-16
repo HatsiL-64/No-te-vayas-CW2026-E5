@@ -14,8 +14,8 @@
     {
         $usuario = $_SESSION['usuario'];
         $tipo_usuario = $_SESSION['tipo_usuario'];
-        $grupo_get = $_GET['grupo'];
-        $id_grupo = deshacer_secuencia(desencriptar($grupo_get, $_SESSION["llave"]));
+        $id_grupo = $_GET['grupo'];
+        //$id_grupo = deshacer_secuencia(desencriptar($grupo_get, $_SESSION["llave"]));
         $sql1 = "SELECT id_ete FROM grupos WHERE id_grupo = '$id_grupo'";
         $resultado = mysqli_query($conexion, $sql1);
         $fila= mysqli_fetch_assoc($resultado);
@@ -63,7 +63,7 @@
                     //esto lo vi en la documentacion de php, esta increible
                     echo <<<EOH
                             <h3>
-                                <a href='dentro-modulos.php?grupo={$grupo_get}&modulo={$registro['numero']}'>Módulo {$registro['numero']} </a>
+                                <a href='dentro-modulos.php?grupo=$id_grupo&modulo={$registro['id_modulo']}'>Módulo {$registro['numero']} </a>
                             </h3>
                             <p>{$registro["nombre"]}</p>
                         </article>    
