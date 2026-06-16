@@ -43,7 +43,7 @@
         <section class="contenedor_modulos">
             <article class="modulos_impar">
                 <h3>
-                    <a href="dentro-modulos.php">Módulo 1 </a>
+                    <a href="dentro-modulos.php?grupo=<?php echo $id_grupo?>">Módulo 1 </a>
                 </h3>
                 <p>Introducción a la computación</p>
             </article>

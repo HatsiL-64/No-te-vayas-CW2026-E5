@@ -14,6 +14,8 @@
     $id_grupo = isset($_GET['grupo']) ? $_GET['grupo'] : '';
     $id_modulo = isset($_GET['modulo']) ? $_GET['modulo'] : '';
 
+
+
     // -- PRUEBA CON DATOS SIMULADOS
     /*$_SESSION['usuario'] = '101010'; 
     $_SESSION['tipo_usuario'] = 2; // Pon 2 para probar como Profesor, o 1 para Alumno
@@ -31,24 +33,24 @@
 
     // -- CODIGO PARA GUARDA Y ACTUALIZA LOS DÍAS DE ASISITENCIA (SOLO PROFESOR)
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_asistencia'])) { // Verifica que el formulario se haya enviado
-        if (isset($_POST['sum_asistidos']) && isset($_POST['sum_totales'])) { // Verifica que los datos estén presentes
+        if (isset($_POST['mas_asistidos']) && isset($_POST['mas_totales'])) { // Verifica que los datos estén presentes
             
-            foreach ($_POST['sum_asistidos'] as $alumno_id => $sumar_asistencias) { // Recorre cada alumno y sus asistencias a sumar   
-                $sumar_totales = $_POST['sum_totales'][$alumno_id];
+            foreach ($_POST['mas_asistidos'] as $alumno_id => $sumar_asistencias) { // Recorre cada alumno y sus asistencias a sumar   
+                $sumar_totales = $_POST['mas_totales'][$alumno_id];
 
                 $sumar_asistencias = (int)$sumar_asistencias; // Convertimos a entero
                 $sumar_totales = (int)$sumar_totales;
 
                 if ($sumar_asistencias > 0 || $sumar_totales > 0) {
-                    $sql_update = "UPDATE asistencia 
+                    $sql_update = "UPDATE asistencia_$id_grupo
                                 SET d_asistidos = d_asistidos + $sumar_asistencias,  /*Actualiza sumando las asistencias*/
-                                d_total = d_total + $sumar_totales 
+                                d_totales = d_totales + $sumar_totales 
                                 WHERE id_alumno = '$alumno_id' AND id_modulo = '$id_modulo'";
                     
                     mysqli_query($conexion, $sql_update);
                 }
             }
-            header("Location: asistencia.php"); 
+            header("Location: asistencia.php?grupo=$id_grupo&modulo=$id_modulo"); 
             exit();
         }
     }
@@ -68,10 +70,14 @@
         <!-- <<< VISTA: ALUMNO >>> -->
         <?php if ($tipo_usuario == 1): ?> <!-- Información de asistencia -->
             <?php
-            $query = "SELECT d_asistidos, d_total FROM asistencia WHERE id_alumno = '$id_usuario' AND id_modulo = '$id_modulo'";
-            $res = mysqli_query($conexion, $query);
+            $sql1= "SELECT id_alumno FROM alumnos WHERE id_usuario = $id_usuario";
+            $resultado = mysqli_query($conexion, $sql1);
+            $fila= mysqli_fetch_assoc($resultado);
+            $id_alumno = $fila['id_alumno'];
+            $query = "SELECT d_asistidos, d_totales FROM asistencia_$id_grupo WHERE id_alumno = $id_alumno AND id_modulo = '$id_modulo'";
+            $res = mysqli_query($conexion, $query)  or die("Error en el query: " . mysqli_error($conexion));
             $datos = mysqli_fetch_assoc($res);
-            $porcentaje = asistencias_alumno($conexion, $id_usuario, $id_modulo); 
+            $porcentaje = asistencias_alumno($conexion, $id_alumno, $id_grupo, $id_modulo); 
             ?>
 
             <h3>Módulo: <?php echo $id_modulo; ?></h3>
@@ -85,7 +91,7 @@
                 <tr> 
                     <!-- -- Si hay datos -->
                     <td><?php echo $datos['d_asistidos']; ?></td>
-                    <td><?php echo $datos['d_total']; ?></td>
+                    <td><?php echo $datos['d_totales']; ?></td>
                     <td><?php echo round($porcentaje, 1); ?>%</td>
                 </tr>
                 <?php else: ?> <!-- -- Si no hay datos -->
@@ -99,7 +105,7 @@
         <?php elseif ($tipo_usuario == 2): ?> <!-- Tabla para actualizar asistencias -->
             <h3>Módulo: <?php echo $id_modulo; ?> | Grupo: <?php echo $id_grupo; ?></h3>
             
-            <form action="" method="POST">
+            <form action="asistencia.php?grupo=<?php echo $id_grupo?>&modulo=<?php echo $id_modulo?>" method="POST">
                 <table class="tabla">
                     <tr> <!-- Encabezado -->
                         <th>Alumnos</th>
@@ -110,7 +116,7 @@
                     </tr>
 
                     <?php
-                    $query_grupo = "SELECT id_alumno, d_asistidos, d_total FROM asistencia WHERE id_grupo = '$id_grupo' AND id_modulo = '$id_modulo'";
+                    $query_grupo = "SELECT id_alumno, d_asistidos, d_totales FROM asistencia_$id_grupo WHERE id_modulo = '$id_modulo'";
                     $res_grupo = mysqli_query($conexion, $query_grupo);
 
                     if (mysqli_num_rows($res_grupo) > 0):
@@ -119,7 +125,7 @@
                             <tr>
                                 <td class="alumnos"><?php echo $alumno['id_alumno']; ?></td>
                                 <td><?php echo $alumno['d_asistidos']; ?></td>
-                                <td><?php echo $alumno['d_total']; ?></td>
+                                <td><?php echo $alumno['d_totales']; ?></td>
                                 <td>
                                     <input type="number" name="mas_asistidos[<?php echo $alumno['id_alumno']; ?>]" value="0" min="0" style="width: 60px;">
                                 </td>

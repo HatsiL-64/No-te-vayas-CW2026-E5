@@ -2,7 +2,7 @@
     include 'layout.php';
     include 'config.php';
     session_start();
-
+    
     $usuario = $_SESSION['usuario'];
     $sql1 = "SELECT tipo_usuario FROM usuarios WHERE id_usuario = '$usuario'";
     $resultado = mysqli_query($conexion, $sql1);
@@ -103,6 +103,14 @@
                     ?>
             </div>
         </section>
+        <div class="contenedor-boton">
+        <?php
+            if($tipo_usuario == 2 || $tipo_usuario == 3)
+            {
+                echo "<a class='pag' href = 'añade-recurso.php?grupo=$id_grupo&modulo=$id_modulo'> Cuestionario </a>";
+            }
+        ?>
+        </div>
     </main>
 </body>
 </html>

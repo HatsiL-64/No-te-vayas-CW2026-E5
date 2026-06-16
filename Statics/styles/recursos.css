@@ -64,3 +64,27 @@ h3 {
 .recursos {
     margin-top: 120px;
 }
+
+.contenedor-boton{
+    display: inline;
+    text-align: center;
+    justify-content: center; 
+    gap: 30px;             
+    margin: 80px;
+    margin-left: 100px;
+    width: 100%;
+}
+.pag{
+    background-color: #00286B;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100px;
+}
+.pag:hover{
+    background-color: #FDC500;
+    color: black;
+}
