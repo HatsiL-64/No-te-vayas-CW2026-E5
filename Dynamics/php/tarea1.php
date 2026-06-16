@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_notas']) && $
                 mysqli_query($conexion, $sql_save);
             }
         }
-        header("Location: detalle_actividad.php?id=$id_actividad&grupo=$id_grupo&modulo=$id_modulo");
+        header("Location: tarea1.php?id=$id_actividad&grupo=$id_grupo&modulo=$id_modulo");
         exit();
     }
 }
@@ -84,7 +84,7 @@ if (!$actividad) {
 
             <?php elseif ($tipo_usuario == 2): ?>
                 <h2>Panel de Calificaciones</h2>
-                <form action="detalle_actividad.php?id=<?php echo $id_actividad; ?>&grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>" method="POST">
+                <form action="tarea1.php?id=<?php echo $id_actividad; ?>&grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>" method="POST">
                     <table style="width: 100%; border-collapse: collapse; text-align: left;">
                         <thead>
                             <tr>
@@ -129,7 +129,7 @@ if (!$actividad) {
         </section>
         
         <p style="text-align: center; margin-top: 20px;">
-            <a href="actividades.php?grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>" style="color: #002b5c; text-decoration: none; font-weight: bold;"> Regresar a la lista</a>
+            <a href="tareas.php?grupo=<?php echo $id_grupo; ?>&modulo=<?php echo $id_modulo; ?>" style="color: #002b5c; text-decoration: none; font-weight: bold;"> Regresar a la lista</a>
         </p>
     </main>
 </body>
