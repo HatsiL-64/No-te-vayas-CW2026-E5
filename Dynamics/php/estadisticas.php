@@ -6,16 +6,34 @@ include_once 'config.php';
 $id_alumno = '101010';
 $id_modulo = 'Programación estructurada';*/
 
-    function asistencias_alumno($conexion, $id_alumno, $id_grupo)
+    function asistencias_alumno2($conexion, $id_alumno, $id_grupo)
     {
-        $sql = "SELECT asistencia_$id_grupo.id_alumno, asistencia_$id_grupo.d_asistidos, asistencia_$id_grupo.d_total FROM asistencia_$id_grupo WHERE asistencia_$id_grupo.id_alumno = '$id_alumno'";
+        $sql = "SELECT asistencia_$id_grupo.id_alumno, asistencia_$id_grupo.d_asistidos, asistencia_$id_grupo.d_totales FROM asistencia_$id_grupo WHERE asistencia_$id_grupo.id_alumno = '$id_alumno'";
         $resultado_query = mysqli_query($conexion, $sql);
         if ($resultado_query === false) {
             return 0; 
         }
         if ($registro = mysqli_fetch_assoc($resultado_query)){
             $asistidos =  $registro["d_asistidos"];
-            $total = $registro["d_total"];
+            $total = $registro["d_totales"];
+            if ($total > 0) {
+                $promedio_alumno = ($asistidos / $total)*100;
+                return $promedio_alumno;
+            }
+        }
+        return 0;
+    }
+
+    function asistencias_alumno($conexion, $id_alumno, $id_grupo, $id_modulo)
+    {
+        $sql = "SELECT asistencia_$id_grupo.id_alumno, asistencia_$id_grupo.d_asistidos, asistencia_$id_grupo.d_totales FROM asistencia_$id_grupo WHERE asistencia_$id_grupo.id_alumno = '$id_alumno' AND id_modulo = '$id_modulo'";
+        $resultado_query = mysqli_query($conexion, $sql);
+        if ($resultado_query === false) {
+            return 0; 
+        }
+        if ($registro = mysqli_fetch_assoc($resultado_query)){
+            $asistidos =  $registro["d_asistidos"];
+            $total = $registro["d_totales"];
             if ($total > 0) {
                 $promedio_alumno = ($asistidos / $total)*100;
                 return $promedio_alumno;
@@ -27,14 +45,14 @@ $id_modulo = 'Programación estructurada';*/
 
     function asistencias_grupal($conexion, $id_grupo, $id_modulo)
     {
-        $sql = "SELECT asistencia_$id_grupo.id_grupo, asistencia_$id_grupo.d_total, AVG(asistencia_$id_grupo.d_asistidos) FROM asistencia_$id_grupo";
+        $sql = "SELECT asistencia_$id_grupo.d_totales, AVG(asistencia_$id_grupo.d_asistidos) FROM asistencia_$id_grupo WHERE id_modulo = '$id_modulo'";
         $resultado_query = mysqli_query($conexion, $sql);
         if ($resultado_query === false) {
             return 0; 
         }
         if ($registro = mysqli_fetch_assoc($resultado_query)){
             $asistidos =  $registro["AVG(asistencia_$id_grupo.d_asistidos)"];
-            $total = $registro["d_total"];
+            $total = $registro["d_totales"];
             $promedio_grupo = ($asistidos / $total)*100;
             return $promedio_grupo;
         }

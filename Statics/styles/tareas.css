@@ -1,13 +1,106 @@
-h2{
-    text-align: center;
+:root{
+    --azul-marino: #00296B;
+    --azul-mar: #003F88;
+    --azul-cielo: #00509D;
+    --dorado: #FDC500;
+    --amarillo-chillon: #FFD500;
 }
-h1{
-    text-align: center;
-}
-h3{
-    position: relative;
-    left: 300px;
-}
-.main_tar{
+
+.main_tar {
     margin-top: 120px;
+    margin-left: 240px; /* Empuja el contenido para que no lo tape tu menú lateral */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+h1, h2 {
+    text-align: center;
+    color: var(--azul-marino);
+    margin-bottom: 20px;
+}
+
+.tareas, .actividades {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+article.tarea, article.tareas {
+    background-color: #ffffff;
+    border-left: 6px solid var(--dorado); 
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+article.tarea:hover, article.tareas:hover {
+    transform: translateX(8px);
+    border-left-color: var(--azul-marino);
+}
+
+h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+h3 a {
+    text-decoration: none;
+    color: var(--azul-marino);
+    font-weight: bold;
+    display: block; 
+}
+
+h3 a:hover {
+    color: var(--dorado);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form label {
+    font-weight: bold;
+    color: var(--azul-marino);
+}
+
+form input, form select, form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--azul-marino);
+    box-shadow: 0 0 5px rgba(0, 43, 92, 0.2);
+}
+
+form button {
+    background-color: var(--azul-marino);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+form button:hover {
+    background-color: var(--dorado);
+    color: var(--azul-marino);
 }
