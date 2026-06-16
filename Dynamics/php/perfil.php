@@ -73,6 +73,12 @@ $alumno = mysqli_fetch_assoc($resultado_query);
             </h3>
         </div>
         <?php
+        $id_grupo1 = $alumno['id_grupo1'];
+        $sql4 = "SELECT id_ete FROM grupos WHERE id_grupo = '$id_grupo1'";
+        $resultado4 = mysqli_query($conexion, $sql4);
+        $fila4 = mysqli_fetch_assoc($resultado4);
+        $id_ete = $fila4['id_ete']; 
+        if($id_ete == 'CM1' ||$id_ete == 'CM2' || $id_ete == 1){
             $sql3 = "SELECT ea FROM cuestionario WHERE id_alumno = $id_alumno";
             $resultado3 = mysqli_query($conexion, $sql3);
             $fila3 = mysqli_fetch_assoc($resultado3);
@@ -99,13 +105,6 @@ $alumno = mysqli_fetch_assoc($resultado_query);
             $promedio_mye = cuesti_alumno_p3($conexion, $id_alumno);
             $promedio_aa = cuesti_alumno_p4($conexion, $id_alumno);
             $promedio_ec = cuesti_alumno_p5($conexion, $id_alumno);
-
-            $promedio_asis_g1 = asistencias_alumno($conexion, $id_alumno, $alumno['id_grupo1']);
-            $promedio_caif_g1 = calificaciones_alumnos($conexion, $id_alumno, $alumno['id_grupo1']);
-            if ($alumno['id_grupo2'] != NULL){
-                $promedio_asis_g2 = asistencias_alumno($conexion, $id_alumno, $alumno['id_grupo2']);
-                $promedio_caif_g2 = calificaciones_alumnos($conexion, $id_alumno, $alumno['id_grupo2']);
-            }
         ?>
         <div class="datos">
             <div class = "contenedor">
@@ -116,19 +115,28 @@ $alumno = mysqli_fetch_assoc($resultado_query);
             <div>
                 <h3> - Estilo de aprendizaje: <?php echo $ea?></h3>
                 <p><?php echo $mensaje_ea ?></p>
-                <h3>- Promedio hábitos de estudio: <?php echo $promedio_he ?></h3>
-                <h3>- Promedio tiempo disponible: <?php echo $promedio_t ?> </h3>
-                <h3>- Promedio motivación y entorno: <?php echo $promedio_mye ?> </h3>
-                <h3>- Promedio análisis y abstracción: <?php echo $promedio_aa ?> </h3>
-                <h3>- Promedio equipo de cómputo: <?php echo $promedio_ec?></h3>
+                <h3>- Promedio hábitos de estudio: <?php echo $promedio_he ?>/3</h3>
+                <h3>- Promedio tiempo disponible: <?php echo $promedio_t ?>/3 </h3>
+                <h3>- Promedio motivación y entorno: <?php echo $promedio_mye ?>/3 </h3>
+                <h3>- Promedio análisis y abstracción: <?php echo $promedio_aa ?>/3 </h3>
+                <h3>- Promedio equipo de cómputo: <?php echo $promedio_ec?>/3</h3>
             </div>
             </div>
+            <?php 
+            }
+            $promedio_asis_g1 = asistencias_alumno2($conexion, $id_alumno, $alumno['id_grupo1']);
+            $promedio_caif_g1 = calificaciones_alumnos($conexion, $id_alumno, $alumno['id_grupo1']);
+            if ($alumno['id_grupo2'] != NULL){
+                $promedio_asis_g2 = asistencias_alumno2($conexion, $id_alumno, $alumno['id_grupo2']);
+                $promedio_caif_g2 = calificaciones_alumnos($conexion, $id_alumno, $alumno['id_grupo2']);
+            }
+        ?>
             <div class = "contenedor">
             <div id="estadisticas">
                 <h2> Estadísticas </h2>
             </div>
             <div>
-                <h3> - Asistencias <?php echo $alumno['id_grupo1'] . ": " . $promedio_asis_g1?> </h3>
+                <h3> - Asistencias <?php echo $alumno['id_grupo1'] . ": " . $promedio_asis_g1?> % </h3>
                 <h3> - Calificaciones <?php echo $alumno['id_grupo1'] . ": " . $promedio_caif_g1?> </h3>
                 <?php
                     if ($alumno['id_grupo2'] != NULL){
