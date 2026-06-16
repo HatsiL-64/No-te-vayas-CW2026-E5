@@ -1,5 +1,12 @@
 <?php
 session_start();
+include 'procesar_cookies.php';
+if (!isset($_SESSION["tipo_usuario"])) {
+  if(isset($_COOKIE["usuario"]))
+    procesar_cookies();        
+  else 
+    header("Location: ../../login.html");
+}
 if ($_SESSION["tipo_usuario"] != 3) {
   header("Location: inicio.php");
   exit();

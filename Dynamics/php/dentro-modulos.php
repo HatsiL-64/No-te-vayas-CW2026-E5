@@ -2,9 +2,12 @@
 session_start();
 include 'layout.php';
 include 'validaciones.php';
-if(!isset($_SESSION["usuario"])){
-    header("inicio.php");
-    exit();
+include 'procesar_cookies.php';
+if (!isset($_SESSION["tipo_usuario"])) {
+    if(isset($_COOKIE["usuario"]))
+        procesar_cookies();        
+    else 
+        header("Location: ../../login.html");
 }
 if (isset($_GET['grupo']))
 {

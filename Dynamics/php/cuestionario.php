@@ -129,7 +129,7 @@
                         </label>
                     </div>
                     <div id="pregunta-bloque">
-                        <p>7. Cuando un código nno funciona en clase, ¿qué decisión tomas?</p>
+                        <p>7. Cuando un código no funciona en clase, ¿qué decisión tomas?</p>
                         <label>
                             <input type=radio name="he_7" value="3" required>Pido ayuda al maestro o a los asesores.
                         </label>

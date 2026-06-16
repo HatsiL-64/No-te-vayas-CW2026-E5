@@ -1,8 +1,15 @@
 <?php
-include 'layout.php';
-include 'estadisticas.php';
-include_once 'config.php';
 session_start();
+    include 'layout.php';
+    include 'estadisticas.php';
+    include_once 'config.php';
+    include 'procesar_cookies.php';
+    if (!isset($_SESSION["tipo_usuario"])) {
+        if(isset($_COOKIE["usuario"]))
+            procesar_cookies();        
+        else 
+            header("Location: ../../login.html");
+    }
     $usuario = $_SESSION['usuario'];
     $sql1 = "SELECT tipo_usuario FROM usuarios WHERE id_usuario = '$usuario'";
     $resultado = mysqli_query($conexion, $sql1);

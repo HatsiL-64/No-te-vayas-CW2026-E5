@@ -1,7 +1,15 @@
 <?php
 session_start();
 include 'codigo_errores.php';
-if (!isset($_SESSION["usuario"]) || $_SESSION["tipo_usuario"] == 1) {
+include 'procesar_cookies.php';
+if (!isset($_SESSION["tipo_usuario"])) {
+  if(isset($_COOKIE["usuario"]))
+    procesar_cookies();        
+  else 
+    header("Location: ../../login.html");
+}
+
+if($_SESSION["tipo_usuario"] == 1) {
   header("Location: inicio.php");
   exit();
 }

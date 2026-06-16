@@ -1,11 +1,15 @@
 <?php
     session_start();
-    if (!isset($_SESSION["tipo_usuario"]) || !isset($_COOKIE)) {
-        header("Location: ../../login.html");
-    }
     include 'layout.php';
     include 'config.php';
     include 'validaciones.php';
+    include 'procesar_cookies.php';
+    if (!isset($_SESSION["tipo_usuario"])) {
+        if(isset($_COOKIE["usuario"]))
+            procesar_cookies();        
+        else 
+            header("Location: ../../login.html");
+    }
     $id_usuario = $_SESSION['usuario'];
     $tipo_usuario = $_SESSION['tipo_usuario'];
 ?>
