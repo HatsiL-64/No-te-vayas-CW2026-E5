@@ -99,12 +99,14 @@ $alumno = mysqli_fetch_assoc($resultado_query);
                 $ea = "Tu estilo de aprendizaje es Práctico, puedes buscar ejercicios en la sección de recursos, buscarlos en internet o pedirle alguno a tu docente";
             }
             }
-
-            $promedio_he = cuesti_usuario_p1($conexion, $id_alumno);
-            $promedio_t = cuesti_usuario_p2($conexion, $id_alumno);
-            $promedio_mye = cuesti_alumno_p3($conexion, $id_alumno);
-            $promedio_aa = cuesti_alumno_p4($conexion, $id_alumno);
-            $promedio_ec = cuesti_alumno_p5($conexion, $id_alumno);
+            $sql5 = "SELECT prom_he, prom_t, prom_aa, prom_ec, prom_mye FROM alumnos WHERE id_alumno = $id_alumno";
+            $resultado5 = mysqli_query($conexion, $sql5);
+            $fila5 = mysqli_fetch_assoc($resultado5);
+            $promedio_he = $fila5['prom_he'];
+            $promedio_t = $fila5['prom_t'];
+            $promedio_mye = $fila5['prom_mye'];
+            $promedio_aa = $fila5['prom_aa'];
+            $promedio_ec = $fila5['prom_ec'];
         ?>
         <div class="datos">
             <div class = "contenedor">
