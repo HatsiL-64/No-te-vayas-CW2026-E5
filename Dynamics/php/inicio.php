@@ -53,6 +53,11 @@
                                     echo "<a class='pag' href='./modulos.php?grupo=" . $alumno['id_grupo2'] . "'>" . $alumno['id_grupo2'] . "</a>";
                                     echo"</h3>";
                                     echo "<p>";
+
+                                    $sql = "SELECT ete.nombre FROM grupos INNER JOIN ete ON grupos.id_ete = ete.id_ete WHERE id_grupo = '". $alumno["id_grupo2"] ."';";
+                                    $resultado = mysqli_query($conexion, $sql);
+                                    $alumno = mysqli_fetch_assoc($resultado);
+                                    
                                     echo $alumno['nombre'];
                                     echo "</p>";
                                     echo"</div>";
