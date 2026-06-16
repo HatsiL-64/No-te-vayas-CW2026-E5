@@ -13,8 +13,9 @@ $tipo_usuario = $_SESSION["tipo_usuario"];
 
 if ($tipo_usuario == 3) {
     if (isset($_GET['grupo']) && isset($_GET['ete'])) {
-        $id_grupo = sanitizar_entrada($_GET['grupo']);
-        $id_ete = sanitizar_entrada($_GET['ete']);
+        // correccion: sanitizar_entrada requiere dos argumentos ($conexion, $datos)
+        $id_grupo = sanitizar_entrada($conexion, $_GET['grupo']);
+        $id_ete = sanitizar_entrada($conexion, $_GET['ete']);
         $actualizar = $_GET['actualizar'];
     } else if (isset($_POST['id_grupo']) && isset($_POST['id_ete'])) {
         $id_grupo = $_POST['id_grupo'];
@@ -26,7 +27,9 @@ if ($tipo_usuario == 3) {
 
     //Comprobacion de la existencia de lo obtenido por GET
     //existencia del grupo
-    $sql = "SELECT COUNT(*) FROM grupos WHERE id_grupo = '" . $id_grupo . "' AND id_grupo = '" . $id_ete . "';";
+    // correccion: la segunda condicion comparaba id_grupo consigo mismo en lugar de id_ete,
+    // haciendo que el COUNT nunca fuera 1 y redirigiendo siempre al admin fuera de la pagina
+    $sql = "SELECT COUNT(*) FROM grupos WHERE id_grupo = '" . $id_grupo . "' AND id_ete = '" . $id_ete . "';";
     $query = mysqli_query($conexion, $sql);
     $respuesta = mysqli_fetch_assoc($query);
     if($respuesta["COUNT(*)"] != 1){

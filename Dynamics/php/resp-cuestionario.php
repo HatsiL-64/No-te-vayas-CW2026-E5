@@ -1,6 +1,9 @@
 <?php
-    include 'config.php';
+    // correccion: session_start() faltaba, dejando la pagina sin verificacion de autenticacion
+    session_start();
     include 'layout.php';
+    include 'estadisticas.php';
+    include_once 'config.php';
     if($_SERVER["REQUEST_METHOD"] == 'POST')
     {
         $id_alumno = $_POST["id_alumno"];
@@ -65,7 +68,8 @@
             }
         }
         else{
-            $sql3 = "INSERT cuestionario(id_alumno, id_grupo, ea, he_1, he_2, he_3, he_4, he_5, he_6, he_7, he_8, he_9, he_10, he_11, t_1, t_2, t_3, t_4, t_5, t_6, aa_1, aa_2, ec_1, mye_1, mye_2, mye_3, mye_4, comentario, ec_2)
+            // correccion: faltaba INTO en la sentencia INSERT, causando error de sintaxis SQL en el primer registro
+            $sql3 = "INSERT INTO cuestionario(id_alumno, id_grupo, ea, he_1, he_2, he_3, he_4, he_5, he_6, he_7, he_8, he_9, he_10, he_11, t_1, t_2, t_3, t_4, t_5, t_6, aa_1, aa_2, ec_1, mye_1, mye_2, mye_3, mye_4, comentario, ec_2)
                     VALUES($id_alumno, '$id_grupo', '$ea', $he_1, $he_2, $he_3, $he_4, $he_5, $he_6, $he_7, $he_8, $he_9, $he_10, $he_11, $t_1, $t_2, $t_3, $t_4, $t_5, $t_6, $aa_1, $aa_2, $ec_1, $mye_1, $mye_2, $mye_3, $mye_4, '$comentario', $ec_2)";
             $ejecutar = mysqli_query($conexion, $sql3);
             if($ejecutar)
@@ -81,7 +85,19 @@
                 echo "Hubo un error"; echo "Error en UPDATE: " . mysqli_error($conexion);
             }
         }
-    }
+        $promedio_he = cuesti_usuario_p1($conexion, $id_alumno);
+        $promedio_t = cuesti_usuario_p2($conexion, $id_alumno);
+        $promedio_mye = cuesti_alumno_p3($conexion, $id_alumno);
+        $promedio_aa = cuesti_alumno_p4($conexion, $id_alumno);
+        $promedio_ec = cuesti_alumno_p5($conexion, $id_alumno);
+        $sql4 = "UPDATE alumnos SET prom_he  = $promedio_he, prom_t   = $promedio_t, prom_aa  = $promedio_aa, prom_ec  = $promedio_ec, prom_mye = $promedio_mye 
+        WHERE id_alumno = $id_alumno";
+        $resultado4 = mysqli_query($conexion, $sql4) or die("Error en el query: " . mysqli_error($conexion));
+        if(!$resultado4){
+            echo "ERROR"; 
+        }
+    
+        }
     else{
         header("Location: inicio.php");
     }

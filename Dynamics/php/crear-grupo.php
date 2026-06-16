@@ -1,8 +1,9 @@
 <?php
+    // correccion: session_start() debe ir antes de cualquier output HTML
+    session_start();
     include 'layout.php';
     include 'config.php';
     include 'validaciones.php';
-    session_start();
     
     $usuario = $_SESSION['usuario'];
     /*$sql1="SELECT tipo_usuario FROM usuarios WHERE id_usuario = $usuario";
@@ -71,8 +72,9 @@
             $resultado = mysqli_query($conexion, $sql3);
             $fila = mysqli_fetch_assoc($resultado);
             $id_ete = $fila['id_ete'];
-            $sql4 = "INSERT INTO grupos(id_grupo, nombre, id_ete, plantel) 
-            VALUES('$id_grupo', '$nombre', $id_ete, $plantel)";
+            // correccion: id_ete es VARCHAR, faltaban comillas y causaba error SQL
+            $sql4 = "INSERT INTO grupos(id_grupo, nombre, id_ete, plantel)
+            VALUES('$id_grupo', '$nombre', '$id_ete', $plantel)";
             $resultado = mysqli_query($conexion, $sql4);
             
             $sql_asignatura = "CREATE TABLE asignaturas_$id_grupo(
@@ -91,9 +93,10 @@
             )";
             mysqli_query($conexion, $sql_asignatura);
 
+            // correccion: faltaba AUTO_INCREMENT en id_actividad, los INSERT sin ese campo fallaban
             $sql_act = "CREATE TABLE actividades_$id_grupo(
-            id_actividad INT PRIMARY KEY, 
-            tipo_act VARCHAR(5) NOT NULL, 
+            id_actividad INT AUTO_INCREMENT PRIMARY KEY,
+            tipo_act VARCHAR(5) NOT NULL,
             fecha_asig DATETIME NOT NULL, 
             fecha_entr DATETIME, 
             id_modulo VARCHAR(10) NOT NULL, 
@@ -113,20 +116,27 @@
             )";
             mysqli_query($conexion, $sql_calificaciones);
 
+            // correccion: la tabla tenia una columna llamada 'asistencias' pero todo el codigo
+            // consulta y actualiza 'd_asistidos' y 'd_totales', causando que la asistencia
+            // nunca se pudiera leer ni guardar
             $sql_asistencia = "CREATE TABLE asistencia_$id_grupo(
-            id_alumno INT NOT NULL, 
-            id_modulo VARCHAR(10) NOT NULL, 
-            asistencias TINYINT UNSIGNED DEFAULT 0,
+            id_alumno INT NOT NULL,
+            id_modulo VARCHAR(10) NOT NULL,
+            d_asistidos TINYINT UNSIGNED DEFAULT 0,
+            d_totales TINYINT UNSIGNED DEFAULT 0,
             PRIMARY KEY (id_alumno, id_modulo),
             FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno),
             FOREIGN KEY (id_modulo) REFERENCES modulos(id_modulo)
             )";
             mysqli_query($conexion, $sql_asistencia);
 
+            // correccion: faltaban las columnas 'nombre' y 'descripcion' que recursos.php si consulta
             $sql_recursos = "CREATE TABLE recursos_$id_grupo(
             id_recurso INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
             id_modulo VARCHAR(10) NOT NULL,
-            tipo_recurso VARCHAR(1), 
+            tipo_recurso VARCHAR(1),
+            nombre VARCHAR(100),
+            descripcion TEXT,
             ruta VARCHAR(90),
             FOREIGN KEY (id_modulo) REFERENCES modulos(id_modulo)
             )";

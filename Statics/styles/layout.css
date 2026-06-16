@@ -68,3 +68,21 @@ h1{
     background-color: #EBE19B;
     width: 50vw;
 }
+.contenedor-boton{
+    display: flex;
+    margin-top: 20px;
+}
+.btn-enviar {
+    background-color: #00286B;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100px;
+}
+.btn-enviar:hover{
+    background-color: #FDC500;
+    color: black;
+}
