@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["usuario"])) {
     $_SESSION['usuario'] = $registro["id_usuario"];
     $_SESSION['tipo_usuario'] = $registro["tipo_usuario"];
     $_SESSION['nombre'] = $registro["nombre"];
+    $_SESSION['llave'] = random_int(1, 72057594037927935); //un entero de 7 bytes
     setcookie("usuario", $registro["id_usuario"], time() + 604800); // 3600 * 24 * 7 Una semana
     header("Location: inicio.php");
   } else {
