@@ -37,7 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
           <p>Tipo de usuario:</p>
           <input type="radio" name="tipo_usuario" value="alumno" required><label>Alumno</label>
           <input type="radio" name="tipo_usuario" value="profesor" required><label>Profesor</label>
-          <br><input type="submit" value="tipo_usuario">
+        </div>
+        <div class="contenedor-boton">
+          <input class="btn-enviar" type="submit" value="tipo_usuario">
         </div>
       </form>
     </div>

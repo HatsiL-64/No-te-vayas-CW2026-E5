@@ -59,8 +59,8 @@ if ($_SESSION["tipo_usuario"] != 3) {
         </div>
         <div class="pregunta_formulario">
           <label>Correo del profesor<input type="text" name="correo" placeholder="" required></label>
-        </div>
-        <input type="submit" value="Registrar profesor">
+        </div class="contenedor-boton">
+        <input class="btn-enviar" type="submit" value="Registrar profesor">
       </form>
     </div>
   </main>
