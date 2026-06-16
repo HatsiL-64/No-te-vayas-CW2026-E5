@@ -66,13 +66,9 @@ h3 {
 }
 
 .contenedor-boton{
-    display: inline;
     text-align: center;
-    justify-content: center; 
     gap: 30px;             
-    margin: 80px;
-    margin-left: 100px;
-    width: 100%;
+    margin: 50px;
 }
 .pag{
     background-color: #00286B;

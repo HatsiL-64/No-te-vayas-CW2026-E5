@@ -29,7 +29,14 @@
 <body>
     <main class="recursos">
         <h2>Recursos</h2>
-
+        <div class="contenedor-boton">
+        <?php
+            if($tipo_usuario == 2 || $tipo_usuario == 3)
+            {
+                echo "<a class='pag' href = 'añade-recurso.php?grupo=$id_grupo&modulo=$id_modulo'> Añade Recurso </a>";
+            }
+        ?>
+        </div>
         <section id="archivos">
             <h3>Archivos</h3>
             <div id="cuadro_arch">
@@ -103,14 +110,6 @@
                     ?>
             </div>
         </section>
-        <div class="contenedor-boton">
-        <?php
-            if($tipo_usuario == 2 || $tipo_usuario == 3)
-            {
-                echo "<a class='pag' href = 'añade-recurso.php?grupo=$id_grupo&modulo=$id_modulo'> Cuestionario </a>";
-            }
-        ?>
-        </div>
     </main>
 </body>
 </html>
